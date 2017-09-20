@@ -1,0 +1,47 @@
+<style>
+	.scroll{
+		height : 100%;
+	}
+	md-toolbar._md-toolbar-transitions{
+		z-index : 4;
+	}
+</style>
+<ion-view title="Connexion" id="page2">
+    <ion-content padding="false" >
+	<div layout="column" style="height:100%;" ng-cloak>
+		<md-toolbar>
+			  <div class="md-toolbar-tools md-accent-2" md-whiteframe="6">
+				<md-button class="md-icon-button" aria-label="Settings" style="color:white" ng-click="toggleLeft()">
+				  <i class="material-icons">menu</i>
+				</md-button>
+				<h2 style="color:white;">
+				  <span>{{title}}</span>
+				</h2>
+				<span flex></span>
+			  </div>
+		</md-toolbar>
+	
+		<ion-nav-view></ion-nav-view>
+	<section layout="row" flex>
+		<md-sidenav
+			class="md-sidenav-left"
+			md-component-id="left"
+			md-is-locked-open="$mdMedia('gt-md')"
+			md-whiteframe="4">
+		  <md-content ng-controller="LeftCtrl">
+			  <md-toolbar class="md-theme-indigo">
+				<h1 class="md-toolbar-tools" style="color: white">Sidenav Left</h1>
+			  </md-toolbar>
+			<md-button ng-click="close()" class="md-primary" hide-gt-md>
+			  Close Sidenav Left
+			</md-button>
+			<p hide show-gt-md>
+			  This sidenav is locked open on your device. To go back to the default behavior,
+			  narrow your display.
+			</p>
+		  </md-content>
+		</md-sidenav>
+	  </section>
+	</div>
+</ion-content>
+</ion-view>

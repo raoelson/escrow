@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+
+  <link rel="manifest" href="manifest.json">
+
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/angular-material-data-table/dist/md-data-table.min.css" />
+
+    <link href="css/custom-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/leaflet/dist/leaflet.css">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+  -->
+
+  <!-- <script src="lib/leaflet/dist/leaflet.js"></script> -->
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <!-- Les js externe -->
+  <!-- <script src="lib/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script> -->
+<!-- 
+  <script src="//rawgit.com/lodash/lodash/3.10.1/lodash.min.js"></script>
+  
+  <script src="//rawgit.com/nmccready/angular-simple-logger/master/dist/angular-simple-logger.js"></script>
+  <script src="//rawgit.com/angular-ui/angular-google-maps/master/dist/angular-google-maps.min.js"></script> -->
+  <script src="lib/angular-google-maps/lodash.min.js"></script>
+  
+  <script src="lib/angular-google-maps/angular-simple-logger.js"></script>
+  <script src="lib/angular-google-maps/angular-google-maps.min.js"></script>
+  <!-- <script src='//maps.googleapis.com/maps/api/js'></script> -->
+  <!-- <script src='//maps.google.com/maps/api/js?sensor=true'></script> -->
+
+  <script src="lib/angular-http-auth/src/http-auth-interceptor.js"></script>
+  <script src="lib/angular-resource/angular-resource.min.js"></script>
+  <script src="lib/angular-aria/angular-aria.min.js"></script>
+  <script src="lib/angular-messages/angular-messages.min.js"></script>
+  <script src="lib/angular-material/angular-material.min.js"></script>
+  <script src="lib/angular-material-data-table/dist/md-data-table.min.js"></script>
+  <script src="lib/angular-moment/moment.js"></script>
+  <script src="lib/angular-moment/angular-moment.min.js"></script>
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+ <!--  <script src="cordova.js"></script> -->
+  <link href="css/ionic.app.css" rel="stylesheet" />
+  <link rel="stylesheet" href="lib/angular-material/angular-material.min.css" />
+  <link href="css/roboto.css" rel="stylesheet" />
+  <!-- <link href="http://allfont.net/allfont.css?fonts=montserrat-hairline" rel="stylesheet" type="text/css" /> -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <style type="text/css">
+   *{
+    font-family: 'Roboto', sans-serif;
+  }
+  .platform-ios .manual-ios-statusbar-padding{
+    padding-top:20px;
+  }
+  .manual-remove-top-padding{
+    padding-top:0px; 
+  }
+  .manual-remove-top-padding .scroll{
+    padding-top:0px !important;
+  }
+  ion-list.manual-list-fullwidth div.list, .list.card.manual-card-fullwidth {
+    margin-left:-10px;
+    margin-right:-10px;
+  }
+  ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidth > .item {
+    border-radius:0px;
+    border-left:0px;
+    border-right: 0px;
+  }
+</style>
+
+<!-- your app's js -->
+<script src="js/app.js"></script>
+<script src="js/config.js"></script>
+<!-- Les routes -->
+<script src="js/routes.js"></script> <!--Base-->
+<!-- Les controllers -->
+<script src="js/controllers.js"></script><!--Base-->
+<script src="js/controllers/IntroCtrl.js"></script>    
+
+<script src="js/directives.js"></script>
+
+<script src="js/services/InscriptionService.js"></script>
+<script src="js/services/ReferentielsService.js"></script>
+<script src="js/services/UtilisateursService.js"></script>
+<script src="js/controllers/loginController.js"></script>
+<script src="js/controllers/InscriptionController.js"></script>
+<script src="js/controllers/ProfilController.js"></script>
+<script src="js/controllers/dossiersController.js"></script>
+<script src="js/controllers/DocumentController.js"></script>
+<script src="js/controllers/DashboardController.js"></script>
+<script src="js/controllers/TransactionController.js"></script>
+
+<!-- Les étapes de la transaction -->
+<script src="js/controllers/transaction/etape1Controller.js"></script>
+<script src="js/controllers/transaction/etape2Controller.js"></script>
+<script src="js/controllers/transaction/etape3Controller.js"></script>
+<script src="js/controllers/transaction/etape4Controller.js"></script>
+
+<script src="js/controllers/MessageController.js"></script>
+<script src="js/controllers/FilDiscussionController.js"></script>
+<script src="js/controllers/DetailsController.js"></script>
+
+<!-- Les services -->
+<script src="js/services.js"></script><!--Base-->
+<script src="js/services/AuthenticationService.js"></script>
+<script src="js/services/DocumentService.js"></script>
+<script src="js/services/TransactionService.js"></script>
+<script src="js/services/MessageService.js"></script>
+<script src="js/services/InvitationService.js"></script>
+<script src="js/services/EMCService.js"></script>
+<script src="js/services/PdfViewer.js"></script>
+
+<!-- Components -->
+<script src="js/components/expertveo.js"></script>
+
+
+</head>
+<body ng-app="app">
+  <div ng-controller="ReferentielsController">
+    <ion-nav-view></ion-nav-view>
+  </div>
+  <script id="templates/intro.html" type="text/ng-template"> 
+    <ng-include src="'templates/slider/slide.html'"></ng-include>
+  </script>
+  <script id="templates/main.html" type="text/ng-template">
+    <ion-view hide-back-button="true" view-title="Awesome">
+      <ion-content class="padding" >
+        <h1>Main app here</h1>
+        <button class="button" ng-click="toIntro()">Do Tutorial Again</button>
+      </ion-content>
+    </ion-view>
+  </script>
+
+</body>
+</html>

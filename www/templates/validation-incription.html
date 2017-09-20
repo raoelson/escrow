@@ -1,0 +1,19 @@
+<md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools" md-whiteframe=4>
+        <md-button style="color:white;" ui-sref="intro" class="md-icon-button" aria-label="Settings">
+          <md-icon md-svg-src="img/icons/ic_arrow_back_white_24px.svg"></md-icon>
+        </md-button>
+        <h2 style="color:white;">
+          <span>Validation compte</span>
+        </h2>
+      </div>
+    </md-toolbar>
+<ion-view>
+    <ion-content class="has-header" padding=true style="margin-top: 22px;">
+		<h3>Votre compte a été créér avec succès</h3>
+			<!-- href="{{ urlValidation }}" -->
+		<p>
+			Veuillez cliquer sur le lien ci dessous pour activer votre compte <a href="{{ urlValidation }} target="blank" ng-click="valider()">Activation du compte</a>
+		</p>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,182 @@
+<ion-view title="Dashboard"  id="dashboard" ng-cloak>
+	<ion-content padding="true" >
+		<div class="col">
+			<h6>
+				<md-icon md-svg-src="img/icons/ic_arrow_back_black_24px.svg" style="margin-right: 10px;" class="material-icons md-raised" ng-click="retour()"></md-icon> 
+				Retour à la liste
+			</h6>
+		</div>
+		<div layout-padding flex md-whiteframe=3 ng-show="(transaction.type_transaction.code == 'MOTO' || transaction.type_transaction.code == 'AUTO')">
+			<h3>Détails de Transaction
+			</h3>
+			<div layout="row">		
+				<p flex>Vous êtes</p>
+				<p flex>
+					{{ transaction.user == "VEND" ? 'Vendeur' : 'Acheteur'}}
+				</p>
+			</div>
+<!-- 			<div layout="row">		
+				<p flex>Type du bien</p>
+				<p flex>Tsy aiko</p>
+			</div> -->
+			<div layout="row">		
+				<p flex>Description</p>
+				<p flex>{{ transaction.bien.description }}</p>
+			</div>
+			<div layout="row">		
+				<p flex>Date achat</p>
+				<p flex>{{ transaction.bien.date_achat | date : 'dd/MM/yyyy' }}</p>
+			</div>
+			<div layout="row">		
+				<p flex>Date première circulation</p>
+				<p flex>{{ transaction.bien.date_premiere_mise_circulation | date : 'dd/MM/yyyy' }}</p>
+			</div>
+			<div layout="row">		
+				<p flex>immatriculation</p>
+				<p flex>{{ transaction.bien.immatriculation }}</p>
+			</div>
+			<div layout="row">		
+				<p flex>Contructeur</p>
+				<p flex>{{ transaction.bien.constructeur }}</p>
+			</div>
+			<div layout="row">		
+				<p flex>Type</p>
+				<p flex>{{ transaction.bien.type }}</p>
+			</div>	
+			<div layout="row">		
+				<p flex>Première main</p>
+				<p flex>{{transaction.bien.premiere_main == true ? 'Oui' : 'Non'}}</p>
+			</div>
+			<div layout="row">		
+				<p flex>Dénomination Commerciale</p>
+				<p flex>{{transaction.bien.denomination_com }}</p>
+			</div>
+			<div layout="row">		
+				<p flex>Kilométrage</p>
+				<p flex>{{transaction.bien.km }} km</p>
+			</div>
+			<h3>Détail de facturation</h3>
+			<div layout="row">		
+				<p flex>Prix du bien</p>
+				<p flex>{{transaction.bien.prix }} €</p>
+			</div>
+			<div layout="row">		
+				<p flex>Commission mysealdeal TTC</p>
+				<p flex>{{ transaction.frais_sequestre }} €</p>
+			</div>	
+			<div layout="row">
+				<p flex>Montant HT</p>
+				<p flex>{{ transaction.montant_ht }} €</p>
+			</div>		
+			<div layout="row">
+				<p flex>Montant TVA</p>
+				<p flex>{{ transaction.tva }} €</p>
+			</div>	
+			<div layout="row">
+				<p flex>Montant total TTC</p>
+				<p flex>{{ transaction.montant_h_t + transaction.tva }} €</p>
+			</div> 
+		</div>
+		<div layout-padding flex md-whiteframe=3 ng-hide="(transaction.type_transaction.code == 'MOTO' || transaction.type_transaction.code == 'AUTO')">
+			<h3>Détails de Transaction
+			</h3>
+			<div layout="row">		
+				<p flex>Vous êtes</p>
+				<p flex>
+					{{ transaction.user == "VEND" ? 'Vendeur' : 'Acheteur'}}
+				</p>
+			</div>
+			<div layout="row">		
+				<p flex>Description</p>
+				<p flex>{{ transaction.titre }}</p>
+			</div>
+			<div layout="row">		
+				<p flex>Type de transaction</p>
+				<p flex>{{ transaction.type_transaction.libelle }}</p>
+			</div>
+			<div ng-if="transaction.livraison">
+				<h3>Détails de livraison
+				</h3>
+				<div layout="row">		
+					<p flex>Frais de livraison</p>
+					<p flex>{{ transaction.frais_livraison }}</p>
+				</div>
+				<div layout="row">		
+					<p flex>Type expéditeur</p>
+					<p flex>{{ transaction.type_expediteur }}</p>
+				</div>
+				<div layout="row">		
+					<p flex>Type receveur</p>
+					<p flex>{{ transaction.type_receveur }}</p>
+				</div>
+				<div layout="row">		
+					<p flex>Transporteur</p>
+					<p flex>{{ transaction.transporteur_emc.operateur }}</p>
+				</div>
+				<div layout="row">		
+					<p flex>Origine</p>
+					<p flex>{{ transaction.emc_origin_code_postal }} {{ transaction.origin_ville_emc }} </p>
+				</div>
+				<div layout="row">		
+					<p flex>Destination</p>
+					<p flex>{{ transaction.emc_destination_code_postal }} {{ transaction.destination_ville_emc }}</p>
+				</div>
+				<!-- <div layout="row">		
+					<p flex>Type de bien</p>
+					<p flex>{{ transaction.transporteur_emc.operateur }}</p>
+				</div> -->
+				<div layout="row">
+					<div flex>		
+						<span flex>Quantité</span>
+						<span flex>{{ transaction.emc_quantite }}</span>
+					</div>
+					<div flex>
+						<span flex>Poids</span>
+						<span flex>{{ transaction.emc_poids }} Kg</span>
+					</div>
+				</div>
+				<div layout="row">		
+					<p flex>Longeur * Largeur * Hauteur</p>
+					<p flex>{{ transaction.emc_longueur }} x {{ transaction.emc_largeur }} X {{ transaction.emc_hauteur }}</p>
+				</div>
+
+			</div>
+			<h3>Détail de facturation</h3>
+			<div layout="row">		
+				<p flex>Prix du {{ transaction.type_transaction.libelle}}</p>
+				<p flex>{{transaction.prix }} €</p>
+			</div>
+			<div layout="row">		
+				<p flex>Commission mysealdeal TTC</p>
+				<p flex>{{ transaction.frais_sequestre }} €</p>
+			</div>	
+			<div layout="row">
+				<p flex>Montant HT</p>
+				<p flex>{{ transaction.montant_ht }} €</p>
+			</div>		
+			<div layout="row">
+				<p flex>Montant TVA</p>
+				<p flex>{{ transaction.tva }} €</p>
+			</div>	
+			<div layout="row">
+				<p flex>Montant total TTC</p>
+				<p flex>{{ transaction.montant_ht + transaction.tva }} €</p>
+			</div> 
+			<div ng-if="afficherssv">
+			<h3>Service additionnels</h3>
+			<div layout="row">
+				<p flex>Total HT des services additionnels</p>
+				<p flex>{{ transaction.montant_ht + transaction.tva }} €</p>
+			</div> 
+			<div layout="row">
+				<p flex>TVA sur autres services HT</p>
+				<p flex>{{ transaction.montant_ht + transaction.tva }} €</p>
+			</div> 
+			<div layout="row">
+				<p flex>Total TTC des services additionnels	</p>
+				<p flex>{{ transaction.montant_ht + transaction.tva }} €</p>
+			</div> 
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

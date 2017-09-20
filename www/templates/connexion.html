@@ -1,0 +1,50 @@
+<!-- <toolbar-custom></toolbar-custom> -->
+<ion-view view-title="Connexion"  id="connexion" class="content-bg"> 
+    <toolbar-custom></toolbar-custom>  
+    <ion-content>
+
+        <div layout="column"  style="height:100%;"  layout-align="space-around stretch"
+        layout-padding layout-margin>
+        <span flex></span>
+    <div ng-hide="loading" style="">
+    <div>
+
+        <div style="display: inline-block;vertical-align: middle;width: 30%">   
+            <a ui-sref="intro">
+                <img 
+                style="display: inline-block;vertical-align: middle;"
+                src="img/icons/ic_arrow_back_white_24px.svg" 
+                alt="un triangle aux trois côtés égaux"
+                height="35px"
+                width="60px" />
+                 Retour
+            </a> 
+        </div>
+        
+
+        <div style="display: inline-block;
+                    vertical-align: middle;text-align: right;width: 30%"> Connection</div>
+
+        </div>
+        <br/>
+        <form name="connexionForm" novalidate>
+            <input-telephone ng-model='user.username' isType="telephone" required></input-telephone>
+            <input-password ng-model='user.pass' isType="password" required></input-password> 
+            <input style="  margin-left: 35%; text-align: center !important; background-color: transparent; border: 1px solid #fff;color: white;padding: 12px 25px; margin-bottom: 20px" layout-align="center center" type="button" value="Mot de passe oublié?" onclick="alert(' reinitialisation envoyé à '+ prompt('Un email vous sera envoyé pour reinitialiser votre mot de passe?'))">     
+            <section layout="row" layout-xs="column" layout-align="center center" layout-wrap>            
+                
+            </section>
+            <br/>
+            <md-button class="md-raised md-accent  col" ng-disabled="connexionForm.$invalid" ng-click="login()">Se connecter</md-button>
+                <md-button class="md-raised md-primary col" ui-sref="signup">S'inscrire</md-button>
+                <md-button class="md-raised button-dark col" type="reset">Annuler</md-button>
+        </form>  
+    </div>
+    <loading text="Authentification en cours ..." vars="loading" default-show="false"></loading>
+    <span flex></span>
+</div>
+</ion-content>
+
+
+
+

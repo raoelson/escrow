@@ -1,0 +1,6 @@
+<div ng-repeat="menu in menus">
+	<a class="item item-icon-left" ng-click="close()" ui-sref-active="md-primary"  ui-sref="{{menu.link}}">
+		<i class="icon {{menu.icon}}"></i>
+		{{menu.title}} 
+	</a>
+</div>

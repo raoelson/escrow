@@ -1,0 +1,38 @@
+<div layout="column" layout-padding>
+
+<!--     <div class="card">
+        <h1>Messsages</h1>
+        <div class="item item-text-wrap"> -->
+ <md-button class="md-raised" ui-sref="escrow.creermessage">Nouveau message</md-button>
+<!--         </div>
+    </div>
+ -->
+    <div layout="column" flex>
+
+        <md-table-container>
+            <table data-md-table data-md-row-select="options.rowSelection" multiple="false" data-ng-model="selected" md-progress="promise">
+                <thead ng-if="!options.decapitate" md-head data-md-order="query.order" md-on-reorder="onReorder">
+                    <tr md-row>
+                        <th md-column><span>Objet</span></th>
+                        <th md-column><span>Envoyé le</span></th>
+                        <th md-column data-md-desc><span>Message</span></th>
+                        <th md-column><span>Action</span></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md-select="message" md-select-id="id" multiple="false" data-md-on-select="false" md-on-deselect="false" x-md-auto-select="false" data-ng-repeat="message in messages | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+                        <td md-cell>{{ message.objet}}</td>
+                        <td md-cell>{{ message.date_envoi | date:'dd/mm/yyyy HH:mm'}}</td>
+                        <td md-cell>{{ message.contenu | limitTo: 30}}</td>
+                        <td md-cell><md-icon ui-sref="escrow.fildiscussion({id : message.id})"  md-svg-icon="img/icons/ic_email_black_24px.svg" style="color: #0F0;" aria-label="Alarm Icon"></md-icon></td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        
+        <data-md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{messages.length}}" md-on-paginate="onPaginate" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></data-md-table-pagination>
+
+    </div>
+        <div layout="column" style="height:100% !important;">
+    </div>
+</div>

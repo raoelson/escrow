@@ -1,0 +1,40 @@
+<div layout="column">
+<form name="experForm" novalidate >
+{{experForm.$error}}
+	<md-input-container flex>
+        <label>Formule</label>
+        <md-select ng-required="expv" name="experveo_type_formule" ng-model="$ctrl.transaction.experveo_type_formule">
+            <md-option ng-value=''><em>Choisir une formule</em></md-option>
+            <md-option ng-repeat="formule in $ctrl.typeFormules" ng-selected="$ctrl.transaction.experveo_type_formule.id == formule.id" ng-click="$ctrl.setTarif(formule)" ng-value="formule" >
+              {{formule.code}}
+            </md-option>
+        </md-select>
+    </md-input-container>
+	<p>Je choisis le lieu de rendez-vous de l'expertise</p>
+	<div style="margin-top: 7px;">
+		<md-radio-group name="experveo_lieu_rdv"  ng-model="$ctrl.transaction.experveo_lieu_rdv" ng-required="expv" layout="row">
+                    <md-radio-button  ng-value="$ctrl.transaction.experveo_lieu_rdv == '1'" value="agc" flex> En agence </md-radio-button>
+                    <md-radio-button ng-value="$ctrl.transaction.experveo_lieu_rdv == '0'" value="ec" flex>A l'endroit de mon choix</md-radio-button>
+		</md-radio-group>
+	</div>
+	<div style="margin-top: 14px;">
+		<div layout="row">
+			<div layout="column">
+				<b>Date de rendez-vous</b>
+				<md-datepicker md-open-on-focus name="experveo_date_heure_rdv" ng-required="expv" ng-model="$ctrl.transaction.experveo_date_heure_rdv" md-placeholder="Date"></md-datepicker>
+			</div>
+			<div layout="column">
+				<b>Heure de rendez-vous</b>
+				<md-datepicker md-open-on-focus name="experveo_date_heure_rdv" ng-required="expv" ng-model="$ctrl.transaction.experveo_date_heure_rdv" md-placeholder="Date"></md-datepicker>
+			</div>
+		</div>
+	</div>
+	<md-checkbox style="margin-top : 14px;" ng-model="$ctrl.transaction.experveo_etude_marche" ng-if="$ctrl.transaction.experveo_type_formule.code == 'ScanExpert Or' || $ctrl.transaction.experveo_type_formule.code == 'ScanExpert'" aria-label="valeur" ng-change="$ctrl.setTarif($ctrl.transaction.experveo_type_formule)">
+        Etude de la valeur marché du véhicule
+    </md-checkbox>
+	<md-input-container class="md-block" flex-gt-sm>
+        <label>Tarif</label>
+        <input ng-model="$ctrl.transaction.experveo_tarif" ng-value="$ctrl.transaction.experveo_tarif" />
+    </md-input-container>
+    </form>
+</div>

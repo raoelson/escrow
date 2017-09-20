@@ -1,0 +1,69 @@
+<ion-view view-title="Connexion"  id="connexion" class="content-bg"> 
+    <toolbar-custom ></toolbar-custom> 
+    <ion-content >
+        
+        <div layout="column" style="height:100%;"  layout-align="space-around stretch" 
+        layout-padding layout-margin>
+        <span flex></span>
+        <br/>
+        <div>
+        <div>
+        <div style="display: inline-block;vertical-align: middle;width: 30%">  
+        <a ui-sref="intro">  
+            <img 
+            style="display: inline-block;vertical-align: middle;"
+            src="img/icons/ic_arrow_back_white_24px.svg" 
+            alt="un triangle aux trois côtés égaux"
+            height="35px"
+            width="60px" />
+             Retour
+        </a>
+        </div>
+        
+
+        <div style="display: inline-block;
+                    vertical-align: middle;text-align: right;width: 30%"> S'inscrire</div>
+
+        </div>
+        
+        <br/>
+         <form name="inscriptionForm"  novalidate>
+           <p ng-if="error" class="error" style="color:red">{{ error.message }}</p>
+           <div class="md-no-momentum" ng-hide="onRegister"> 
+               <div class="md-no-momentum" ng-hide="onRegister">
+                <input-telephone ng-model='user.telephone' isType="telephone" required></input-telephone>
+               <!--  <input-email ng-model='user.email' isType="email" required verifemail="true" ></input-email> -->
+                <input-email ng-model='user.email' isType="email"  ></input-email>
+                <!-- <input-password ng-model='user.password' isType="password" required verifpassword="true"></input-password> -->
+                <input-password ng-model='user.password' isType="password" ></input-password>
+                <md-checkbox ng-model="data.cb2" aria-label="Checkbox 1" class="marg-left-5 white">
+                    S'inscrire à notre newletters
+                </md-checkbox>
+                <br/>
+                <md-checkbox style="line-height: 0.2; vertical-align: top;" ng-model="data.cb1" aria-label="Checkbox 1" class="marg-left-5 white">                   
+                </md-checkbox>
+                <span style="color: #FFF"> Je reconnais avoir reçu, pris connaissance et accepté sans réserve les </span>  
+                    <md-button md-no-ink class=" btn-lien no-margin no-padding" style="height: 5px ; color: #0C2264" ng-click="showCGU()">Conditions Générales d'Utilisation</md-button>
+                <span style="color: #FFF"> et  </span>    
+                    <md-button style="height: 5px ; color: #0C2264"" md-no-ink class=" btn-lien no-margin no-padding" ng-click="showCGU()">Politique de confidentialité</md-button>
+                <span style="color: #FFF"> ,et de la </span>    
+                    <md-button style="height: 5px ; color: #0C2264" md-no-ink class="  no-margin no-padding" ng-click="showCGU()">Politique relative aux cookies</md-button>
+                <span style="color: #FFF"> de MySafeDeal. </span>    
+            </div>
+            <div layout="column" layout-align="center center" ng-show="onRegister">
+                <md-progress-circular md-mode="indeterminate" ></md-progress-circular>
+                <span>Création de votre compte</span>
+                <br />
+            </div>
+            <section layout="row"  layout-align="center center" layout-wrap ng-hide="onRegister">
+                
+            </section>
+            <md-button ng-click="inscrir(user)" class="md-raised md-accent col" ng-disabled="inscriptionForm.$invalid || !data.cb1">S'inscrire</md-button>
+                <md-button class="md-raised md-primary col" ui-sref="connexion">Se connecter</md-button>
+                <md-button class="md-raised button-dark col" type="reset">Annuler</md-button>
+        </div>
+    </form>
+</div>
+<span flex></span>
+</div>
+</ion-content>

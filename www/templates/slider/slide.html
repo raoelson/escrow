@@ -1,0 +1,72 @@
+<ion-view>
+
+  <ion-slide-box on-slide-changed="slideChanged(index)">
+    <ion-slide class="content-accueil"  >
+      <ion-content layout style="height:100%" class="content-accueil" padding="true" has-header="true" scroll="true">
+        <toolbar-custom></toolbar-custom>
+        <ng-include src="'templates/accueil.html'"></ng-include>
+      </ion-content>
+      <!-- <div layout="row" class="div-connexion-bottom">
+      <md-button ui-sref="connexion"  class="md-raised orange col" >Connexion</md-button>
+        <md-button ui-sref="signup" class="md-raised cyan col" >Inscription</md-button>
+      </div> -->
+    </ion-slide>  
+    <ion-slide>
+      <ion-content style="background-color: rgb(39,46,112) !important;" layout  padding="true" has-header="true" scroll="true">
+          <toolbar-custom></toolbar-custom>
+          <!-- <ng-include src="'templates/vendeur.html'"></ng-include> -->
+          <ccm url-img="img/etape-1_1.png" title-etape="Inscription sur Mysafedeal"></ccm>
+      </ion-content>
+          <div layout="row"  class="div-connexion-bottom">
+      <md-button ui-sref="connexion"  class="md-raised orange col" >Connexion</md-button>
+        <md-button ui-sref="signup"  class="md-raised cyan col" >Inscription</md-button>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <ion-content style="background-color: rgb(39,46,112) !important;" padding="true" has-header="true" scroll="true">
+          <toolbar-custom></toolbar-custom>
+        <!-- <ng-include src="'templates/acheteur.html'"></ng-include> -->
+          <ccm url-img="img/etape-2_1.png" title-etape="Vérification de l'identité de l'utilisateur"></ccm>
+      </ion-content>
+          <div layout="row" class="div-connexion-bottom">
+      <md-button ui-sref="connexion"  class="md-raised orange col" >Connexion</md-button>
+        <md-button ui-sref="signup"  class="md-raised cyan col" >Inscription</md-button>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <ion-content style="background-color: rgb(39,46,112) !important;" padding="true" has-header="true" scroll="true">
+          <toolbar-custom></toolbar-custom>
+        <!-- <ng-include src="'templates/commentcamarche.html'"></ng-include> -->
+         <ccm url-img="img/etape-3_1.png" title-etape="Sécurisation des fonds"></ccm>
+      </ion-content>
+          <div layout="row" class="div-connexion-bottom">
+      <md-button ui-sref="connexion"  class="md-raised orange col" >Connexion</md-button>
+        <md-button ui-sref="signup"  class="md-raised cyan col" >Inscription</md-button>
+      </div>
+    </ion-slide> 
+    <ion-slide>
+      <ion-content style="background-color: rgb(39,46,112) !important;" padding="true" has-header="true" scroll="true">
+        <toolbar-custom></toolbar-custom>
+        <!-- <ng-include src="'templates/commentcamarche.html'"></ng-include> -->
+         <ccm url-img="img/etape-4_1.png" title-etape="Remise du bien en main propre ou livrasion "></ccm>
+      </ion-content>
+          <div layout="row" class="div-connexion-bottom">
+      <md-button ui-sref="signup"  class="md-raised orange col" >Connexion</md-button>
+        <md-button ui-sref="signup"  class="md-raised cyan col" >Inscription</md-button>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <ion-content style="background-color: rgb(39,46,112) !important;" padding="true" has-header="true" scroll="true">
+        <toolbar-custom></toolbar-custom>
+        <!-- <ng-include src="'templates/commentcamarche.html'"></ng-include> -->
+         <ccm url-img="img/etape-5_1.png" title-etape="Finalisation de la vente de libération des fonds"></ccm>
+      </ion-content>
+          <div layout="row" class="div-connexion-bottom">
+      <md-button ui-sref="connexion"  class="md-raised orange col" >Connexion</md-button>
+        <md-button ui-sref="signup"  class="md-raised cyan col" >Inscription</md-button>
+      </div>
+    </ion-slide>
+  </ion-slide-box>
+</ion-view>
+
+

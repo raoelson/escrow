@@ -1,0 +1,244 @@
+<style>
+	.pane{
+		overflow:auto;
+	}
+</style>
+<div style="position: absolute; z-index: 999; background:rgba(0,0,0,0.3); width: 100%; height: 100%;" ng-if="loading">
+	<div layout="row" layout-align="center center" style="height: 100%;">
+		<loading style="z-index: 9999" text="Récuperation des offres de transport ..." vars="loading" default-show="false"></loading>
+	</div>
+</div>
+<md-content>
+	
+	<div layout="column" layout-padding>
+		<div layout="row">
+			<md-input-container flex>
+				<label>Type de la transaction</label>
+				<input ng-model="transaction.type_transaction.libelle" readonly>
+			</md-input-container>
+
+			<md-input-container flex>
+				<label>Tytre de la transaction</label>
+				<input ng-model="transaction.titre">
+			</md-input-container>
+		</div>
+		<div layout="row">
+			<md-input-container flex>
+				<label>Adresse email acheteur</label>
+				<input ng-model="transaction.adresse_email_acheteur" readonly>
+			</md-input-container>
+
+<!-- 			<md-input-container flex>
+				<label>Prix de vente</label>
+				<input ng-model="transaction.bien.prix" >
+			</md-input-container> -->
+			<div flex>
+				<md-input-container class="md-block" >
+					<label>Prix de vente</label>
+					<input ng-model="transaction.prix" ng-disabled="verifIsAcheteur()" type="number" pattern="[0-9-\.]*" name="prix" required/>
+					<md-icon md-svg-src="img/icons/ic_euro_symbol_black_24px.svg"></md-icon>
+					<div ng-messages="formTrans.prix.$error">
+						<div ng-message="required">Ce champ est obligatoire</div>
+					</div>
+				</md-input-container>
+			</div>
+			
+		</div>
+		<p class="alert-msg" ng-show="(verifIsAcheteur() && transaction.livraison)">
+			Les informations ci-dessous seront prises en compte pour le calcul de vos frais de port et l’édition de votre bon d’expédition. Si celles-ci sont erronées, votre bon d’expédition ne sera pas valide lors de l’expédition.
+		</p>
+		<!-- A mettre en place coté acheteur -->
+
+		<form novalidate name="formEMC" >
+			<div class="div-acheteur" ng-show="(verifIsAcheteur() && transaction.livraison)">
+				<div layout="row">
+					<div flex="50" layout="column">
+						<h4>Type expéditeur</h4>
+						<md-radio-group required ng-model="transaction.type_expediteur" layout="column">
+							<md-radio-button value="entreprise">Entreprise</md-radio-button>
+							<md-radio-button value="particulier"> Particulier </md-radio-button>
+						</md-radio-group>
+						<md-input-container ng-if="transaction.type_expediteur == 'entreprise'">
+							<label>Nom de la societe expéditeur</label>
+							<input ng-required="(transaction.type_expediteur == 'entreprise')" ng-model="transaction.societe_expediteur_emc" >
+						</md-input-container>
+					</div>
+					<div flex="50" layout="column">
+						<h4>Type receveur</h4>
+						<md-radio-group ng-model="transaction.type_receveur" layout="column">
+							<md-radio-button value="entreprise">Entreprise</md-radio-button>
+							<md-radio-button value="particulier"> Particulier </md-radio-button>
+						</md-radio-group>
+						<md-input-container ng-if="transaction.type_receveur == 'entreprise'">
+							<label>Nom de la societe receveur</label>
+							<input ng-required="(transaction.type_receveur == 'entreprise')" ng-model="transaction.societe_receveur_emc" >
+						</md-input-container>
+					</div>
+				</div>
+				<div layout="row">
+					<md-autocomplete flex
+					md-input-name="codePostalField"
+					md-selected-item="selectedItem"
+					md-search-text-change="searchTextChange(searchText)"
+					md-search-text="searchText"
+					md-selected-item-change="selectedItemChange(item)"
+					md-items="item in states | filter:searchText:startsWith"
+					md-item-text="item[0]"
+					md-min-length="0"
+					md-require-match
+					md-floating-label="Code postal d'origine">
+					<md-item-template>
+						<span md-highlight-text="searchText" md-highlight-flags="^i">{{item[0]}}</span>
+					</md-item-template>
+					<md-not-found>
+						Aucun résultat pour "{{searchText}}".
+					</md-not-found>
+				</md-autocomplete>
+				<md-input-container flex>
+					<label>Ville d'origine</label>
+					<input ng-model="transaction.origin_ville_emc" readonly >
+				</md-input-container>
+			</div>
+			<div layout="row">
+<!-- 			<md-autocomplete flex
+			md-input-name="codePostalDestination"
+			md-selected-item="selectedDestination"
+			md-search-text-change="selectedItemChangeDest(searchTextDest)"
+			md-search-text="searchTextDest"
+			md-selected-item-change="selectedItemDestination(destination)"
+			md-items="destination in states | filter:searchTextDest:startsWith"
+			md-item-text="destination[0]"
+			md-min-length="0"
+			md-require-match
+			md-floating-label="Code postal de destination">
+			<md-item-template>
+				<span md-highlight-text="searchTextDest" md-highlight-flags="^i">{{destination[0]}}</span>
+			</md-item-template>
+			<md-not-found>
+				Aucun résultat pour "{{searchTextDest}}".
+			</md-not-found>
+		</md-autocomplete> -->
+		<md-autocomplete flex
+		md-input-name="codePostalDestField"
+		md-selected-item="selectedItemDest"
+		md-search-text-change="searchTextChangeDest(searchTextDest)"
+		md-search-text="searchTextDest"
+		md-selected-item-change="selectedItemChangeDest(item)"
+		md-items="item in states | filter:searchTextDest:startsWith"
+		md-item-text="item[0]"
+		md-min-length="0"
+		md-require-match
+		md-floating-label="Code postal d'origine">
+		<md-item-template>
+			<span md-highlight-text="searchTextDest" md-highlight-flags="^i">{{item[0]}}</span>
+		</md-item-template>
+		<md-not-found>
+			Aucun résultat pour "{{searchText}}".
+		</md-not-found>
+	</md-autocomplete>
+	<md-input-container flex>
+		<label>Ville de destination</label>
+		<input ng-model="transaction.destination_ville_emc" readonly >
+	</md-input-container>
+</div>
+<div layout="row">
+	<md-input-container flex>
+		<label>Type de bien</label>
+		<md-select required style="width:100%" ng-model="transaction.type_bien_emc">
+			<md-optgroup ng-repeat="(cle,titre) in toppings" label="{{cle}}">
+				<md-option ng-value="key" ng-repeat="(key,value) in titre">{{value}}</md-option>
+			</md-optgroup>
+		</md-select>
+	</md-input-container>
+	<md-input-container flex="33">
+		<label>Poids estimé en Kg</label>
+		<input required ng-model="transaction.emc_poids" >
+	</md-input-container>
+</div>
+<!-- <div layout="row">
+	<md-input-container flex>
+		<label>Dimension</label>
+		<md-select style="width:100%" ng-model="transaction.groupe_dimension_emc">
+			<md-optgroup ng-repeat="(cle,titre) in gds" label="{{cle}}">
+				<md-option ng-value="key" ng-repeat="(key,value) in titre">{{value}}</md-option>
+			</md-optgroup>
+		</md-select>
+	</md-input-container>
+</div> -->
+<div layout="row">
+	<md-input-container>
+		<label>Quantité</label>
+		<input required ng-model="transaction.emc_quantite" type="number" min=0 >
+	</md-input-container>
+	<md-input-container>
+		<label>Longueur</label>
+		<input required ng-model="transaction.emc_longueur" type="number" min=0 >
+	</md-input-container>
+</div>
+<div layout="row">
+	<md-input-container>
+		<label>Largueur</label>
+		<input required ng-model="transaction.emc_largeur" type="number" min=0 >
+	</md-input-container>
+	<md-input-container>
+		<label>Hauteur</label>
+		<input required ng-model="transaction.emc_hauteur" type="number" min=0 >
+	</md-input-container>
+</div>
+
+<div layout="column" ng-if="offres" >
+	<md-card ng-repeat="offre in offres">
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-headline">{{ offre.operator.label }}</span>
+				<span class="md-subhead">{{ offre.service.label }}</span>
+			</md-card-title-text>
+			<md-card-title-media>
+				<div class="md-media-sm card-media cover">
+					<img ng-src="{{offre.operator.logo}}" class="md-card-image" alt="Washed Out">
+				</div>
+			</md-card-title-media>
+		</md-card-title>
+		<md-card-content>
+			<div>
+				<b>Départ :</b> <span>{{ offre.collection.date|date: 'dd-MM-yyyy' }}</span>
+				<small>{{ offre.collection.label }}</small>
+			</div>
+			<div>
+				<b>Délai :</b> <span>{{ offre.delivery.date | amDifference:  offre.collection.date : 'days' }} <small >JOUR</small>
+			</span>
+		</div>
+		<div>
+			<b>Livraison :</b> {{ offre.delivery.date|date :'dd-MM-yyyy' }}
+			<small>{{ offre.delivery.label }}</small>
+<!-- 			<md-button class="md-icon-button md-primary" aria-label="Play">
+				<md-tooltip>
+					{{ offre.characteristics[3] + " ." + offre.characteristics[7] }}
+				</md-tooltip>
+				<md-icon icon="img/icons/ic_info_outline_black_24px.svg"></md-icon>
+			</md-button> -->
+		</div>
+		<div>
+			<b>Prix : </b><span class="text-yellow">{{ offre.price["tax-inclusive"] }} &euro;</span>
+			<small class="text-muted">{{ offre.price["tax-exclusive"] }} &euro;</small>
+
+		</div>
+	</md-card-content>
+	<md-card-actions layout="row" layout-align="end center">
+		<md-button class="md-raised md-accent" ng-click="preparationCommande($event,offre,transaction)">Choisir</md-button>
+	</md-card-actions>
+</md-card>
+</div>
+<!--  -->
+<div layout="row" ng-if="peutVoirOffre">
+	<md-button class="md-raised md-primary" ng-disabled="formEMC.$invalid" ng-click="voirOffreTransport()">Voir les offres de transports</md-button>
+</div>
+</div>
+<div layout="row" layout-align="center center">
+	<!-- <md-button class="md-raised md-primary">Voire les offres de transports</md-button> -->
+	<md-button ng-if="!verifIsAcheteur()" class="md-raised md-primary col"  ng-click="valider()">Valider</md-button>
+	<md-button  class="md-raised col" ui-sref="escrow.transaction.etape1">Annuler</md-button>
+</div>
+</div>
+</form>
+</md-content>

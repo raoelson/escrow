@@ -1,0 +1,22 @@
+<md-table-container ng-controller="MessageCtrl">
+  <table data-md-table data-md-row-select="" multiple="" data-ng-model="" md-progress="">
+    <thead>
+      <tr md-row>
+        <th md-column md:order:by=""><span>Objet</span></th>
+        <th md-column md:order:by=""><span>Envoyé le</span></th>
+        <th md-column data-md-numeric data-md-order-by="" data-md-desc><span>Message</span></th>
+        <th md-column data-md-order-by=""><span>Action</span></th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="" md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="options.autoSelect" ng-disabled="" data-ng-repeat="message in messages">
+        <td md-cell>{{ message.objet}}</td>
+        <td md-cell>{{ message.date_envoi|date('d/m/Y H:i:s')}}</td>
+        <td md-cell>{{ message.contenu|slice(0,30)}}</td>
+        <td md-cell></td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<!--<data-md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{transactions.count}}" md-on-paginate="onPaginate" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></data-md-table-pagination>-->

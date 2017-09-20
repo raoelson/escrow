@@ -1,0 +1,49 @@
+  <md-dialog aria-label="Mango (Fruit)">
+    <form ng-cloak>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>Invitation</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="cancel()">
+            <md-icon md-svg-src="img/icons/ic_close_black_24px.svg" aria-label="Close dialog"></md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+
+      <md-dialog-content>
+        <div class="md-dialog-content" ng-hide="loading">
+          <!-- ng-hide="!afficher" -->
+          <div layout="row" >
+            <form novalidate name="invitationForm">
+              <p flex="60">
+                <md-input-container class="md-block">
+                  <label>adress@mail.com</label>
+                  <input ng-model="email" type="email" name="email" ng-disabled="(transaction.invitations.length == 3)" required>
+                </md-input-container>
+              </p>
+              <p flex>
+                <md-button ng-disabled="(transaction.invitations.length == 3)" style="height: 5px !important; position:relative; top: 7px;" ng-disabled="invitationForm.email.$error" class="md-raised md-primary" ng-click="sendMail(email)" >
+                 Inviter
+               </md-button>
+             </p>
+           </form>
+         </div>
+         <div layout="column" ng-if="transaction.invitations.length > 0" ng-repeat="invitation in transaction.invitations">
+          <span style="color:#3C763D !important;">Invitation envoyée à {{ invitation.invite_temporaire.email }} le {{ invitation.date_envoi | date : "dd/MM/yyyy HH:mm" }}</span>
+        </div>
+        <span style="color:#dd2c00 !important;">{{libelle}}</span>
+      </div>
+      <div class="md-dialog-content" ng-show="loading">
+       <div layout="row" layout-sm="column" layout-align="space-around">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">      <span flex></span>
+    <md-button class="md-raised" ng-click="hide()" md-autofocus>
+     Fermer
+   </md-button>
+ </md-dialog-actions>
+</form>
+</md-dialog>

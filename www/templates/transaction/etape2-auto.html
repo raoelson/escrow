@@ -1,0 +1,246 @@
+﻿<style>
+	md-input-container{
+		margin-bottom: 0;
+	}
+</style>
+<ion-view scroll="false" title="Connexion" id="page2">
+	<ion-content padding="false" layout-padding >
+		<form novalidate name="transForm">
+			<div layout="row" layout-xs="column">
+				<div flex>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Description (ex :  renault clio 3 noir an.2007)</label>
+						<input ng-model="transaction.bien.description" name="description" required>
+						<div ng-messages="transForm.description.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-input-container>
+				</div>
+				<div flex>
+					<h4>Date achat</h4>
+					<md-datepicker md-open-on-focus ng-model="transaction.bien.date_achat " name="date_achat" md-placeholder="Date"  md-max-date="maxDate" required>
+						<div ng-messages="transForm.date_achat.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-datepicker>
+
+				</div>
+			</div>
+			<div layout="row" layout-xs="column">
+				<div flex>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Immatriculation</label>
+						<input ng-model="transaction.bien.immatriculation" name="immatriculation" required>
+						<div ng-messages="transForm.immatriculation.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-input-container>
+				</div>
+				<div flex-gt-xs>
+					<h4>Date première mise en circulation (B) *</h4>
+					<md-datepicker md-open-on-focus ng-model="transaction.bien.date_premiere_mise_circulation" md-placeholder="Date" name="date_premiere_mise_circulation"  md-max-date="maxDate" required>
+						<div ng-messages="transForm.date_premiere_mise_circulation.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-datepicker>
+
+				</div>
+			</div>
+			<div layout="row" layout-xs="column">
+				<div flex>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Constructeur (D.1)</label>
+						<input ng-model="transaction.bien.constructeur" name="construteur" required>
+
+						<div ng-messages="transForm.constructeur.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-input-container>
+				</div>
+				<div flex>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Type (D.2)</label>
+						<input ng-model="transaction.bien.type" name="type" required>
+						<div ng-messages="formTrans.type.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-input-container>
+				</div>
+			</div>
+			<div layout="row" layout-xs="column">
+				<div flex>
+					<md-radio-group ng-model="transaction.bien.premiere_main" style="width: 100%;" required name="premiere_main">
+						<h4>Premier main</h4>
+						<div layout="row">
+							<md-radio-button flex=25 value=1 class="md-primary">Oui</md-radio-button>
+							<md-radio-button flex=25 value=0> non</md-radio-button>
+						</div>
+						<div ng-messages="formTrans.premiere_main.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-radio-group>
+				</div>
+				<div flex>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Dénomination commerciale (D.3) * </label>
+						<input ng-model="transaction.bien.denomination_com" name="denomination_com" required>
+						<div ng-messages="formTrans.denomination_com.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-input-container>
+				</div>
+			</div>
+			<div layout="row" >
+				<div flex>
+					<md-input-container flex>
+						<label>Vendeur</label>
+						<md-select ng-model="transaction.bien.vendeur" name="vendeur" required>
+							<md-option  value="particulier" >
+								Particulier
+							</md-option>
+							<md-option  value="professionnel" >
+								Professionnel
+							</md-option>
+						</md-select>
+						<div ng-messages="formTrans.vendeur.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-input-container>
+				</div>
+				<div flex>
+					<md-input-container class="md-block" >
+						<label>Prix vente</label>
+						<input ng-model="transaction.bien.prix" type="number" pattern="[0-9-\.]*" name="prix" required/>
+						<md-icon md-svg-src="img/icons/ic_euro_symbol_black_24px.svg"></md-icon>
+						<div ng-messages="formTrans.prix.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-input-container>
+				</div>
+			</div>
+			<div layout="row" layout-xs="column">
+				<div flex>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Kilometrage</label>
+						<input pattern="[0-9-\.]*" ng-model="transaction.bien.km" type="number" name="km" required />
+						<md-icon md-svg-src="img/icons/ic_directions_car_black_24px.svg"></md-icon>
+						<div ng-messages="formTrans.km.$error">
+							<div ng-message="required">Ce champ est obligatoire</div>
+						</div>
+					</md-input-container>
+				</div>
+				<div flex>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Informations supplémentaires</label>
+						<input ng-model="transaction.bien.info_suppl" />
+					</md-input-container>
+				</div>
+			</div>
+
+
+
+<div  layout="row" layout-padding layout-align="space-around center">
+		<div flex  class="img-doc"  layout-align="space-between stretch"
+
+		layout="column">
+		<div class="cover" ng-click="zoomer($event,'recto', recto)">
+			<img   ng-src="{{recto}}"  class="md-card-image" alt="Washed Out">
+			<!-- <img class="md-card-image"  src="img/adam.jpg"> -->
+			<div class='description_lib'>
+				<div  class='description_content'><md-button ng-click='zoomer($event,"recto",recto)' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+					<md-icon md-svg-src="img/icons/ic_zoom_in_black_24px.svg"></md-icon>
+				</md-button></div>
+			</div>
+		</div>
+		<div layout="row" layout-align="center center">
+			<md-button ng-click='takePhoto("cgr")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+			</md-button>
+			<md-button ng-click='choose("cgr")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_collections_black_24px.svg"></md-icon>
+			</md-button>
+			
+		</div>
+	</div>
+	<div flex  class="img-doc" layout="column" layout-align="space-between stretch">
+		<div class="cover" ng-click='zoomer($event,"verso", verso )'>
+			<img ng-src="{{verso}}"  class="md-card-image" alt="Washed Out">
+			<!-- <img class="md-card-image"  src="img/ben.png"> -->
+			<div class='description_lib'>
+				<div  class='description_content'><md-button ng-click='zoomer($event,"verso",verso)' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+					<md-icon md-svg-src="img/icons/ic_zoom_in_black_24px.svg"></md-icon>
+				</md-button></div>
+			</div>
+		</div>
+		<div layout="row" layout-align="center center">
+			<md-button ng-click='takePhoto("cgv")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+			</md-button>
+			<md-button ng-click='choose("cgv")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_collections_black_24px.svg"></md-icon>
+			</md-button>
+
+		</div>
+	</div>
+</div>
+
+<!-- fin -->
+			
+	<div layout="row" layout-xs="column">
+		<div flex>
+			<h4>Date de la carte grise</h4>
+			<md-datepicker md-open-on-focus ng-model="transaction.bien.date_carte_grise" md-placeholder="Date de la carte grise" md-max-date="maxDate" ng-required="!transaction.bien.num_carte_grise"></md-datepicker>
+		</div>
+		<div flex>
+			<md-input-container flex>
+				<label>N° de formule de la carte grise</label>
+				<input ng-model="transaction.bien.num_carte_grise" ng-required="!transaction.bien.date_carte_grise">
+			</md-input-container>
+		</div>
+	</div>
+	<div layout="column">
+		<h4>Autre documents</h4>
+		<md-button class="md-raised" ng-click="addOtherDocument()">Ajouter un autre document</md-button>
+		<div layout="row" ng-repeat="doc in otherDocs">
+			<div flex=30>
+				<md-icon md-svg-src="img/icons/ic_delete_black_24px.svg"></md-icon>
+				<md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+			</div>
+			<div flex>
+				<img style="width:100%; height: auto;" ng-src="{{doc.data}}" />
+			</div>
+		</div>
+	</div>
+	<!--<div layout-padding>
+		<h4>Cértificat de non gage</h4>
+		<div layout="row">
+			<md-radio-group ng-model="transaction.bien.certificat_non_gage" style="width: 100%;">
+				<p>Souhaitez-vous générer gratuitement un certificat de gage pour votre véhicule ?</p>
+				<div layout="row">
+					<md-radio-button flex=25 value=1 class="md-primary">Oui</md-radio-button>
+					<md-radio-button flex=25 value=0> non</md-radio-button>
+				</div>
+			</md-radio-group>
+		</div>
+		<div ng-if="transaction.bien.certificat_non_gage == 1">
+			Veuillez utiliser ce <a href="https://siv.interieur.gouv.fr/map-usg-ui/do/csa_retour_dem_certificat" target="_blank"> lien </a> afin d'obtenir votre certificat de non gage.
+			Après avoir généré le certificat de non gage, veuillez envoyer le fichier dans la plateforme.
+		</div>
+	</div>
+	<div layout-padding>
+		<h4>Cértificat de gage</h4>
+		<br />
+		<md-button class="md-raised">
+			<md-icon>
+				<md-icon md-svg-src="img/icons/ic_attach_file_black_24px.svg"></md-icon>
+			</md-icon>
+		</md-button>
+	</div>-->
+	<div layout="row">
+		<md-button class="md-raised md-primary col" ng-disabled="transForm.$invalid" ng-click="valider()">Valider</md-button>
+		<md-button class="md-raised col" ui-sref="escrow.transaction.etape1">Annuler</md-button>
+	</div>
+	
+</form>
+</ion-content>
+</ion-view>

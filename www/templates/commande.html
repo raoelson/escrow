@@ -1,0 +1,211 @@
+<md-dialog aria-label="Mango (Fruit)">
+	<form name="commandeForm" ng-cloak>
+		<md-toolbar>
+			<div class="md-toolbar-tools md-accent">
+				<h2>Votre commande d'expédition</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="cancel()">
+					<md-icon md-svg-src="img/icons/ic_close_black_24px.svg" aria-label="Close dialog"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+
+		<md-dialog-content>
+			<div class="md-dialog-content">
+
+				<div ng-if="loading" layout="row" layout-align="center center" style="height: 100%;width:100%">
+				<div layout="column" layout-align="center center"  layout-padding>
+						<md-progress-circular md-mode="indeterminate"></md-progress-circular>
+						<span>Envoie d'une commande de livraison</span>
+					</div>
+
+				</div>
+
+				<div ng-if="!loading">
+					<div layout="column">
+						<span>
+							<bold>Contenu :</bold>
+							<small>{{ transaction.type_bien_emc }}</small>
+						</span>
+						<span>
+							<bold>{{ transaction.emc_quantite }} colis</bold>
+							<small>- {{ transaction.emc_poids }} kg - </small>
+							<bold>Dimension</bold>
+							<small>{{ transaction.emc_longueur  }} cm x {{ transaction.emc_largeur }} cm x {{ transaction.emc_hauteur }} cm</small>
+						</span>
+					</div>
+					<div layout="row"  layout-align="space-around center" >
+						<div layout="column" class="cover">
+							<img ng-src="{{offre.operator.logo}}" class="md-card-image" alt="Washed Out">
+							<span flex>{{ offre.service.label }}</span>
+						</div>
+						<div>
+							<small>{{ offre.price['tax-exclusive'] }}</small> &euro; HT<br />
+							<strong class="text-yellow">{{ offre.price['tax-inclusive'] }} &euro; TTC</strong>
+						</div>
+					</div>
+					<div layout="row" layout-align="space-between center" layout-margin>				
+						<div>
+							{{ offre.collection.date|date : "dd/MM/yyyy" }}<br />
+							{{ offre.characteristics[1] }}
+						</div>
+						<div>
+							{{ offre.delivery.date|date : "dd/MM/yyyy" }}<br />
+							{{ offre.characteristics[3] }}
+						</div>				
+					</div>
+					<div layout="row">	
+						<div>
+							<p><strong class="text-muted">L'expéditeur</strong></p>
+							<div class="bg-gray-light alert">
+								<md-radio-group layout="row" ng-model="cmd.expediteur.civilite">
+									<md-radio-button value="M">M</md-radio-button>
+									<md-radio-button value="Mme">Mme</md-radio-button>
+								</md-radio-group>
+								<div class="form-group">
+									<input type="text" placeholder="Nom *" required="required" ng-model="cmd.expediteur.nom" class="form-control" name="cmd.expediteur.nom"  />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Prénom *" required="required" ng-model="cmd.expediteur.prenom" class="form-control" name="cmd.expediteur.prenom" />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Adresse *" required="required" ng-model="cmd.expediteur.adresse" class="form-control" name="cmd.expediteur.adresse"  />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Complément" class="form-control" ng-model="cmd.expediteur.complement" name="cmd.expediteur.complement" />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Suite" class="form-control" name="cmd.expediteur.suite]" ng-model="cmd.expediteur.suite" />
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" readonly="readonly" name="cmd.expediteur.ville" ng-model="cmd.expediteur.ville"  />
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" readonly="readonly"  ng-model="cmd.expediteur.cp" name="cmd.expediteur.cp"/>
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Téléphone *" ng-model="cmd.expediteur.telephone" required="required" class="form-control" name="cmd.expediteur.telephone"  />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Email *" required="required" class="form-control" name="cmd.expediteur.email"  ng-model="cmd.expediteur.email"/>
+								</div>
+							</div>
+						</div>
+						<div>
+							<p><strong class="text-muted">Le destinataire</strong>
+							</p>
+							<div class="bg-gray-light alert">
+								<md-radio-group layout="row" ng-model="cmd.destinataire.civilite">
+									<md-radio-button value="M">M</md-radio-button>
+									<md-radio-button value="Mme">Mme</md-radio-button>
+								</md-radio-group>
+								<div class="form-group">
+									<input type="text" placeholder="Nom *" required="required" class="form-control" ng-model="cmd.destinataire.nom" name="cmd.destinataire.nom"  />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Prénom *" required="required" class="form-control" ng-model="cmd.destinataire.prenom" name="cmd.destinataire.prenom"  />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Adresse *" required="required" class="form-control" ng-model="cmd.destinataire.adresse" name="cmd.destinataire.adresse"  />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Complément" class="form-control" ng-model="cmd.destinataire.complement" name="cmd.destinataire.complement" />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Suite" class="form-control" ng-model="cmd.destinataire.suite" name="cmd.destinataire.suite" />
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" ng-model="cmd.destinataire.ville" readonly="readonly" name="cmd.destinataire.ville" />
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" ng-model="cmd.destinataire.cp" readonly="readonly" name="cmd.destinataire.cp" />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Téléphone *" required="required" class="form-control" ng-model="cmd.destinataire.telephone" name="cmd.destinataire.telephone"  />
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Email *" required="required" class="form-control" ng-model="cmd.destinataire.email" name="cmd.destinataire.email" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div layout="row" layout-align="start" layout-padding>
+						<md-input-container style="width:100%" class="md-block">
+							<label>Description de votre envoi</label>
+							<textarea required name="cmd.libelle" ng-model="cmd.libelle" md-maxlength="255" rows="5" md-select-on-focus></textarea>
+						</md-input-container>
+					</div>
+
+
+					<div layout="column" ng-if="(isDepot && offre.collection.type == 'DROPOFF_POINT')" >
+						<!-- options="map.options" -->
+						<ui-gmap-google-map
+						map-lazy-load="https://maps.google.com/maps/api/js"
+						class="col-md-6"
+						center="map.center"
+						zoom="map.zoom"
+
+						dragging="map.dragging"
+						control="map.control"
+						ng-cloak
+						>
+						<ui-gmap-marker events="markersEvents" ng-repeat="pointRelais in depotMarkers" coords="pointRelais" idkey="pointRelais.id" ng-cloak>
+							<ui-gmap-window show="pointRelais.showWindow" >
+								<p  ng-cloak>{{pointRelais.title}}</p>
+							</ui-gmap-window>
+						</ui-gmap-marker>
+					</ui-gmap-google-map>
+				</div>
+				<md-content ng-if="(isDepot && offre.collection.type == 'DROPOFF_POINT')" style="height:150px;overflow-y:auto">
+					<md-radio-group ng-model="cmd.depot" ng-change="changerDepot(cmd.depot)">
+						<md-radio-button ng-repeat="value in offre.mandatory['depot.pointrelais'].array" ng-value="value.code" aria-label="{{ value.code }}">
+							{{value.name}}, {{value.address}} {{value.city}} {{value.zipcode}}
+						</md-radio-button>
+					</md-radio-group>	
+				</md-content>
+
+				<div ng-hide="true" layout="column" ng-repeat="m in depotMarkers">
+					<a id="{{m.code}}" href="" ng-click="simulateClick($event,m)">Simulate {{m.id}}</a>
+				</div>
+
+
+				<div layout="column" ng-if="(isDelivery && offre.delivery.type == 'PICKUP_POINT')">
+					<ui-gmap-google-map
+					map-lazy-load="https://maps.google.com/maps/api/js"
+					class="col-md-6"
+					center="map2.center"
+					zoom="map2.zoom"
+					dragging="map2.dragging"
+					control="map2.control"
+					ng-cloak>
+					<ui-gmap-marker ng-repeat="retraitRelais in retraitMarkers" coords="retraitRelais" idkey="retraitRelais.id" >
+						<ui-gmap-window >
+							<p ng-cloak>{{retraitRelais.title}}</p>
+						</ui-gmap-window>
+					</ui-gmap-marker>
+				</ui-gmap-google-map>
+			</div>
+			<md-content ng-if="(isDelivery && offre.delivery.type == 'PICKUP_POINT')" style="height:150px;overflow-y:auto">
+				<md-radio-group ng-model="cmd.livraison" ng-change="changerRetrait(cmd.livraison)">
+					<md-radio-button ng-repeat="value in offre.mandatory['retrait.pointrelais'].array" ng-value="value.code" aria-label="{{ value.code }}">
+						{{value.name}}, {{value.address}} {{value.city}} {{value.zipcode}}
+					</md-radio-button>
+				</md-radio-group>	
+			</md-content>
+			<div ng-hide="true" layout="column" ng-repeat="m in retraitMarkers">
+				<a id="{{m.code}}" href="" ng-click="simulateClick($event,m)">Simulate retrait{{m.id}}</a>
+			</div>
+		</div>
+	</md-dialog-content>
+
+	<md-dialog-actions layout="row">
+		<span flex></span>
+		<md-button ng-disabled="commandeForm.$invalid" class="md-primary" ng-click="envoiCommande(cmd)">
+			Envoyer la commande
+		</md-button>
+		<md-button ng-click="answer('Mb fermeo')">
+			Annuler
+		</md-button>
+	</md-dialog-actions>
+</form>
+</md-dialog>

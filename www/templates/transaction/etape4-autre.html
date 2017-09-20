@@ -1,0 +1,34 @@
+
+<div layout-padding layout-wrap flex>
+	<div layout="row">
+		<p flex>Titre</p>
+		<p flex>{{transaction.titre}}</p>		
+	</div>	
+	<div layout="row">
+		<p flex>Type de la trasaction</p>
+		<p flex>{{transaction.type_transaction.libelle}}</p>
+	</div>	
+	<div layout="row">
+		<p flex>Prix Unitaire</p>
+		<p flex>{{transaction.prix}} €</p>
+	</div>	
+	<div layout="row">		
+		<p flex>Commission mysealdeal TTC</p>
+		<p flex>{{ prixSequestre }} €</p>
+	</div>	
+	<div layout="row">
+		<p flex>Montant HT</p>
+		<p flex>{{ montantHt }} €</p>
+	</div>		
+	<div layout="row">
+		<p flex>Montant TVA</p>
+		<p flex>{{ tva }} €</p>
+	</div>	
+	<div layout="row">
+		<p flex>Montant total TTC</p>
+		<p flex>{{montantTTC}} €</p>
+	</div>
+	<div layout="row">
+		<md-button class="md-raised md-primary col"  ng-click="valider()">Valider</md-button>
+	</div>
+</div>

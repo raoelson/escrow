@@ -1,0 +1,51 @@
+<md-toolbar class="md-table-toolbar md-accent" ng-show="!options.rowSelection || !selected.length">
+				<div class="md-toolbar-tools" layout="row"  layout-align="space-around center">
+					<span>Transaction (vendeur)</span>
+					<span flex></span>
+					<md-button ng-click="loadTransactionVnd()"  aria-label="invite" >
+						<md-icon md-svg-src="img/icons/ic_autorenew_black_24px.svg" style="color:#FFF !important"></md-icon> 
+					</md-button>
+			<!--
+						<md-icon md-svg-src="img/icons/ic_autorenew_black_24px.svg"></md-icon> 
+					</md-button> -->
+			<!-- 		<md-button flex aria-label="invite" class="md-raised" >
+						<md-icon md-svg-src="img/icons/ic_filter_list_black_24px.svg"></md-icon> 
+					</md-button>  -->
+				</div>
+			</md-toolbar>
+			<md-toolbar class="md-table-toolbar alternate md-accent md-primary" ng-show="options.rowSelection && selected.length">
+				<div class="md-toolbar-tools" layout="row"  layout-align="space-around center">
+					<span>{{selected.length}} {{selected.length > 1 ? 'éléments sélectionnés' : 'élément sélectionné'}} </span>
+					<span flex></span>
+					<!-- class="md-raised" -->
+					<md-button flex aria-label="invite"  ng-click="editTransaction(selected[0])">
+						<md-icon md-svg-src="img/icons/ic_create_black_24px.svg"></md-icon> 
+					</md-button> 
+
+				</div>
+			</md-toolbar>
+
+			<md-table-container md-whiteframe="3">
+				<table data-md-table data-md-row-select="true" multiple="false" data-ng-model="selected" md-progress="promiseVnd">
+					<thead ng-if="!options.decapitate" md-head data-md-order="query.order" md-on-reorder="onReorder">
+						<tr md-row>
+							<th md-column md:order:by="id"><span>N°</span></th>
+							<th md-column md:order:by="titre"><span>Titre transaction</span></th>
+							<th md-column data-md-order-by="type_transaction.libelle"><span>Type transaction</span></th>
+							<th md-column data-md-order-by="date_creation"><span>Date création</span></th>
+
+						</tr>
+					</thead>
+					<tbody md-body>
+						<tr md-row md-select="transVnd" md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="false"  data-ng-repeat="transVnd in transactionVendeur | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+							<td md-cell>{{transVnd.id}}</td>
+							<td md-cell>{{transVnd.titre}}</td>
+							<td md-cell>{{transVnd.type_transaction.libelle}}</td>
+							<td md-cell>{{transVnd.date_creation | date:'dd/MM/yyyy'}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</md-table-container>
+
+			<data-md-table-pagination md-limit="query.limit" md-limit-options="true" md-page="query.page" md-total="{{transactionVendeur.lenght}}" md-on-paginate="onPaginate" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></data-md-table-pagination> 
+		</div>

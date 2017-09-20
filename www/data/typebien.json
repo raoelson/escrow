@@ -1,0 +1,86 @@
+{
+	"Alimentation et matières périssables": {
+		"20100": "Denrées alimentaires non périssables",
+		"20110": "Boissons non alcoolisées",
+		"20120": "Boissons alcoolisées"
+	},
+	"Appareils et matériels": {
+		"50100": "Matériel médical",
+		"50110": "Informatique, High tech, téléphonie fixe",
+		"50113": "Téléphonie mobile et accessoires",
+		"50114": "Téléviseurs, écrans d'ordinateur",
+		"50120": "Autres appareils et matériels",
+		"50130": "Supports numériques, CD, DVD",
+		"50140": "Pièces de rechange et accessoires (auto)",
+		"50150": "Pièces de rechange et accessoires (autres)",
+		"50170": "Montres, horlogerie (hors bijoux)",
+		"50330": "Articles de camping, de pêche",
+		"50350": "Articles de sport (hors vêtement)",
+		"50360": "Instruments de musique et accessoires",
+		"50380": "Matériel de chauffage, chaudronnerie",
+		"50390": "Matériel de labo, optique, de mesure",
+		"50395": "Matériel électrique, transfo., câbles",
+		"50400": "Fournitures de bureau, papeterie, recharges",
+		"50420": "Moteurs, boites de vitesse",
+		"50440": "Vélos, cycles sans moteur",
+		"50450": "Outillage, outils, bricolage",
+		"50490": "Plomberie, tubes plastiques",
+		"50500": "Quincaillerie, robinetterie, serrurerie"
+	},
+	"Effets personnels, cadeaux": {
+		"50180": "Cadeaux, cadeaux entreprise",
+		"70100": "Bagages, valises, malles",
+		"70200": "Petit déménagement, cartons, effets personnels"
+	},
+	"Habillement et accessoires": {
+		"40100": "Chaussures",
+		"40110": "Tissus, vêtements neufs",
+		"40120": "Vêtements usagés",
+		"40125": "Accessoires vestimentaires, de mode",
+		"40130": "Cuirs, peaux, maroquinerie",
+		"40150": "Bijoux fantaisie"
+	},
+	"Livres et documents": {
+		"10100": "Documents sans valeur commerciale",
+		"10120": "Journaux",
+		"10130": "Magazines, revues",
+		"10140": "Manuels techniques",
+		"10150": "Livres",
+		"10180": "Radiographies",
+		"10190": "Photographies",
+		"10200": "Courrier interne d'entreprise",
+		"10210": "Propositions commerciales",
+		"10220": "Documents publicitaires",
+		"10230": "Catalogues, rapports annuels",
+		"10240": "Listings informatiques",
+		"10250": "Plans, dessins",
+		"10260": "Documents d'impression",
+		"10280": "Patrons",
+		"10290": "Etiquettes, autocollants",
+		"10300": "Documents d'appels d'offres"
+	},
+	"Loisirs, produits d'agrément": {
+		"80100": "Produits culturels : livres, jeux, CD, DVD etc",
+		"80200": "Appareils électroniques, Image et son etc",
+		"80300": "Bien-être et santé : crèmes, huiles, appareils etc",
+		"80400": "Puériculture, jouets, objets pour enfants etc",
+		"80500": "Loisirs créatifs, matériaux, art et artisanat etc"
+	},
+	"Mobilier et décoration": {
+		"60100": "Mobilier d'habitation",
+		"60102": "Mobilier bureau",
+		"60105": "Mobilier démonté sous emballage",
+		"60108": "Mobilier ancien (antiquité)",
+		"60112": "Petit électroménager, petits appareils ménagers",
+		"60122": "Objets et tableaux courants",
+		"60124": "Lampes, luminaire",
+		"60126": "Tapis",
+		"60128": "Toiles, rideaux, draps",
+		"60129": "Sanitaires, verres, cristallerie, vaisselle",
+		"60130": "Autres objets fragiles et sculptures"
+	},
+	"Produits": {
+		"30100": "Cosmétiques, bien-être",
+		"30300": "Chimie, droguerie, produits d'entretien"
+	}
+}

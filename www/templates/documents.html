@@ -1,0 +1,195 @@
+<style>
+	.document-header {
+		border-left: 3px solid #585858;
+		background-color: #FFF;
+		box-shadow: 1px 1px 1px #B7BBC5;
+		color : #0C2275 !important;
+	}
+	
+</style>
+
+<div style="position: absolute; z-index: 999; background:rgba(0,0,0,0.3); width: 100%; height: 100%;" ng-if="loading">
+	<div layout="row" layout-align="center center" style="height: 100%;">
+		<loading style="z-index: 9999" text="Enregistrement en cours ..." vars="loading" default-show="false"></loading>
+	</div>
+</div>
+
+<ion-view title="Documents"  id="documents" ng-cloak>
+	<ion-content padding="true">
+		<md-content layout-padding >
+			<div layout-padding class="document-header" layout="row" >
+				<img src="img/icon-cart-identity.png"/> 
+				<span>Pièce d'identité</span>
+			</div>
+			<div layout-xs="column" >
+				<div>
+					<span flex>Séléctionner le type de pièce :</span>
+					<md-radio-group  ng-model="identity" layout-xs="column"  layout="row" 
+					layout-padding >
+					<md-radio-button   value="Carte d'identité recto-verso" class="md-primary">Carte d'identité recto-verso</md-radio-button>
+					<md-radio-button class="md-primary" value="Passeport"> Passeport </md-radio-button>
+				</md-radio-group>
+			</div>
+			<div>
+				<p><strong>Le document avec photo doit être:</strong></p>
+				<ul style="
+				margin-left: 30px;
+				list-style: initial;
+				">
+				<li>Délivré par le Gouvernement Français</li>
+				<li>En cours de validité</li>
+				<li>Le document ne doit pas excéder 4 MB</li>
+				<li>Formats acceptés: JPG, PNG, GIF & PDF</li>
+			</ul>
+		</div>
+	</div>
+	<div  layout="row" layout-padding layout-align="space-around center">
+		<div flex ng-hide="identity === 'Passeport'" class="img-doc"  layout-align="space-between stretch"
+
+		layout="column">
+		<div class="cover" ng-click="zoomer($event,'recto', recto)">
+			<img   ng-src="{{recto}}"  class="md-card-image" alt="Washed Out">
+			<!-- <img class="md-card-image"  src="img/adam.jpg"> -->
+			<div class='description_lib'>
+				<div  class='description_content'><md-button ng-click='zoomer($event,"recto",recto)' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+					<md-icon md-svg-src="img/icons/ic_zoom_in_black_24px.svg"></md-icon>
+				</md-button></div>
+			</div>
+		</div>
+		<div layout="row" layout-align="center center">
+			<md-button ng-click='takePhoto("recto")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+			</md-button>
+			<md-button ng-click='choose("recto")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_collections_black_24px.svg"></md-icon>
+			</md-button>
+			
+		</div>
+	</div>
+	<div flex ng-hide="identity === 'Passeport'" class="img-doc" layout="column" layout-align="space-between stretch">
+		<div class="cover" ng-click='zoomer($event,"verso", verso )'>
+			<img   ng-src="{{verso}}"  class="md-card-image" alt="Washed Out">
+			<!-- <img class="md-card-image"  src="img/ben.png"> -->
+			<div class='description_lib'>
+				<div  class='description_content'><md-button ng-click='zoomer($event,"verso",verso)' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+					<md-icon md-svg-src="img/icons/ic_zoom_in_black_24px.svg"></md-icon>
+				</md-button></div>
+			</div>
+		</div>
+		<div layout="row" layout-align="center center">
+			<md-button ng-click='takePhoto("verso")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+			</md-button>
+			<md-button ng-click='choose("verso")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_collections_black_24px.svg"></md-icon>
+			</md-button>
+
+		</div>
+	</div>
+	<div flex ng-show="identity === 'Passeport'" class="img-doc" layout="column" layout-align="space-between stretch">
+		<div class="cover" ng-click='zoomer($event,"pp", pp)'>
+			<img   ng-src="{{pp}}"  class="md-card-image" alt="Washed Out">
+			<!-- <img class="md-card-image" src="img/ben.png" > -->
+			<div class='description_lib'>
+				<div  class='description_content'><md-button  class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+					<md-icon md-svg-src="img/icons/ic_zoom_in_black_24px.svg"></md-icon>
+				</md-button></div>
+			</div>
+		</div>
+		<div layout="row" layout-align="center center">
+			<md-button ng-click='takePhoto("pp")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+			</md-button>
+			<md-button ng-click='choose("pp")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_collections_black_24px.svg"></md-icon>
+			</md-button>
+			
+		</div>
+	</div>
+</div>
+<div layout-padding class="document-header" layout="row" >
+	<img src="img/icone-justificatif-domicile.png"/> 
+	<span>Justificatif de domicile</span>
+</div>
+<div layout="column">
+	<div flex>
+		<p><strong>Le document doit être:</strong></p>
+		<ul style="
+		margin-left: 30px;
+		list-style: initial;
+		">
+		<li>Daté de moins de 3 mois</li>
+		<li>Être au nom du gestionnaire du compte</li>
+		<li>Factures d'énergie ou internet ou télécom (sauf mobile) ou quittance de loyer (non-manuscrite) ou avis d'imposition ou taxe foncière ou taxe d'habitation</li>
+		<li>Le document ne doit pas excéder 4 MB</li>
+		<li>Formats acceptés: JPG, PNG, GIF & PDF</li>
+	</ul>
+</div>
+<p style="margin-top:10px">(*)Si vous êtes hébergés, regroupez le justificatif de domicile, la carte d'identité de l'hébergeur et une attestation d'hébergement dans un fichier.</p>
+</div>
+<div layout-xs="row" layout="column">
+	<!-- à mettre en place -->
+	<div class="img-doc" layout="column" layout-align="space-between stretch">
+		<div class="cover" ng-click='zoomer($event,"jd",jd)'>
+			<img   ng-src="{{jd}}"  class="md-card-image" alt="Washed Out">
+			<!-- <img class="md-card-image" src="img/ben.png" > -->
+			<div class='description_lib'>
+				<div  class='description_content'><md-button  class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+					<md-icon md-svg-src="img/icons/ic_zoom_in_black_24px.svg"></md-icon>
+				</md-button></div>
+			</div>
+		</div>
+		<div layout="row" layout-align="center center">
+			<md-button ng-click='takePhoto("jd")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+			</md-button>
+			<md-button ng-click='choose("jd")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_collections_black_24px.svg"></md-icon>
+			</md-button>
+			
+		</div>
+	</div>
+</div>
+<div layout-padding class="document-header" layout="row" >
+	<img src="img/icon-rib.png"/> 
+	<span>Relevé d'Identité bancaire</span>
+</div>
+<div>
+	<ul style="
+	margin-left: 30px;
+	list-style: initial;
+	">
+	<li>Le document ne doit pas excéder 4 MB</li>
+	<li>Formats acceptés: JPG, PNG, GIF & PDF</li>
+</ul>
+</div>
+<div layout-xs="row" layout="column">
+	<!-- à mettre en place -->
+	<div class="img-doc"  layout="column" layout-align="space-between stretch">
+		<div class="cover" ng-click='zoomer($event,"rib",rib)'>
+			<!-- <img class="md-card-image" src="img/ben.png" > -->
+			<img   ng-src="{{rib}}"  class="md-card-image" alt="Washed Out">
+			<div class='description_lib'>
+				<div  class='description_content'><md-button ' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+					<md-icon md-svg-src="img/icons/ic_zoom_in_black_24px.svg"></md-icon>
+				</md-button></div>
+			</div>
+		</div>
+		<div layout="row" layout-align="center center">
+			<md-button ng-click='takePhoto("rib")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+			</md-button>
+			<md-button ng-click='choose("rib")' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+				<md-icon md-svg-src="img/icons/ic_collections_black_24px.svg"></md-icon>
+			</md-button>
+			
+		</div>
+	</div>
+</div>
+<div layout="row">
+	<md-button  class="md-raised md-primary" ng-click="sendDocs()">Suivant</md-button>
+</div>
+
+</md-content>
+</ion-content>
+</ion-view>

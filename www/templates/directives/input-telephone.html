@@ -1,0 +1,7 @@
+<md-input-container class="md-icon-float md-block">
+    <label>numéro de mobile</label>
+    <md-icon md-svg-src="img/icons/ic_smartphone_black_24px.svg"></md-icon>
+    <!-- <input type="text" name="telephone" ng-model="telephone" minlength="10" maxlength="19" ng-pattern="/^(0|\+33|0033|\+\(33\))[-. ]?[0-9]([-. ]?\d{2}){4}[-. ]?$/" required> -->
+    <input type="text" name="telephone" ng-model="telephone" minlength="10" maxlength="19"  required>
+    <message-error ng-show="form.telephone.$dirty" typechamp="form.telephone.$error" istype="telephone"></message-error>
+</md-input-container>

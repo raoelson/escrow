@@ -1,0 +1,50 @@
+	<div layout="column" layout-padding>
+		<md-checkbox  ng-model="expv"  aria-label="Checkbox 1">
+			Expertveo
+		</md-checkbox>
+		
+		<expert-veo ng-show="expv" expv="expv" transaction="transaction"></expert-veo>
+		<b>Récapitulatif</b>
+		<div flex md-whiteframe=3>
+			<recap-transaction infos="infos" ></recap-transaction>
+			<div layout="row">		
+				<p flex>Commission mysealdeal TTC</p>
+				<p flex>{{ prixSequestre }} €</p>
+			</div>	
+			<div layout="row">
+				<p flex>Montant HT</p>
+				<p flex>{{ montantHt }} €</p>
+			</div>		
+			<div layout="row">
+				<p flex>Montant TVA</p>
+				<p flex>{{ tva }} €</p>
+			</div>	
+			<div layout="row">
+				<p flex>Montant total TTC</p>
+				<p flex>{{montantTTC}} €</p>
+			</div>
+		</div>
+		<!-- style="margin-bottom: 0;" transaction.acheteur_temporaires.length !=  0-->
+		<!-- ng-show="(!transaction.adresse_email_acheteur)" -->
+		<div ng-if="!transaction.acheteur_id" >
+			<div layout="row" ng-repeat="ach in transaction.acheteur_temporaires">
+				<md-input-container class="md-block" flex="40" >
+					<label >Adresse email de l'acheteur</label>
+					<input type="email" ng-model="ach.email" name=""  >
+				</md-input-container>						
+				<md-input-container class="md-block" flex="40">
+					<label >Téléphone de l'acheteur</label>
+					<input type="tel" ng-model="ach.telephone" name=""  >
+				</md-input-container>
+				<md-button class="" ng-show="$last" ng-click="removeAcheteur($index)"><md-icon md-svg-src="img/icons/ic_delete_black_24px.svg" style="color: #0F0;" aria-label="Alarm Icon"></md-icon></md-button>						
+			</div>
+			<md-button class="md-raised md-primary" ng-hide="transaction.acheteur_temporaires.length == 3" ng-click="addAcheteur($event)">Inviter un acheteur</md-button>
+			<div id="choicesDisplay">
+			</div>
+		</div>
+		<div layout="row" layout-align="center center">
+			<md-button class="md-raised md-primary" ng-disabled="
+			(expv && (!transaction.experveo_type_formule))
+			"  ng-click="valider()">Valider</md-button>
+		</div>
+	</div>

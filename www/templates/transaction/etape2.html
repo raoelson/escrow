@@ -1,0 +1,3 @@
+<md-content style="height: 100%;" ng-if="transaction.type_transaction.code == 'AUTO'" ng-include="'templates/transaction/etape2-auto.html'"></md-content>
+
+<md-content style="height: 100%;" ng-if="transaction.type_transaction.code != 'AUTO'" ng-include="'templates/transaction/etape2-autre.html'"></md-content>

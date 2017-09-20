@@ -1,0 +1,178 @@
+<style>
+	md-datepicker{
+		position:relative;
+		left : -16px;
+	}
+	md-select.md-default-theme .md-select-value, md-select .md-select-value{
+		position: relative;
+		top: -5px;
+	}
+	.iban-banque md-input-container{
+		padding-bottom: 0;
+		margin-bottom : 0;
+		margin-top :0;
+		padding-top :0;
+	}
+	.bic md-input-container{
+		padding-bottom: 0;
+		margin-bottom : 0;
+		margin-top :0;
+		padding-top :0;
+	}
+</style>
+
+<ion-view title="Profile" id="profile">
+	<ion-content padding="true">
+		<form layout="column" layout-padding>
+			<h1>Profile</h1>
+			<div>
+				<div layout="row">
+					<div flex>
+						<p>Civilité: <span class="radioValue">{{ user.civilite.code }}</span> </p>
+						<md-radio-group ng-model="user.civilite.code">
+						  <md-radio-button ng-value="civilite.code" ng-repeat="civilite in civilites" class="md-primary">{{civilite.code}}</md-radio-button>
+						</md-radio-group>
+					</div>
+					<div flex>
+						<p>photo de profil</p>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div layout="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Nom</label>
+						<input ng-model="user.nom">
+					</md-input-container>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Prénom</label>
+						<input ng-model="user.prenom">
+					</md-input-container>
+				</div>
+			</div>
+			<div>
+				<div layout="row">
+					<div flex-gt-xs>
+						<p><b>Date de naissance</b></p>
+						<md-datepicker ng-model="user.date_naissance" md-placeholder="Date"></md-datepicker>
+					</div>
+					<div flex-gt-xs>
+						<p><b>Budget alloué à l'opération</b></p>
+						<md-select ng-model="user.budget.id">
+							<md-option ng-value="budget.id" ng-repeat="budget in budgets">{{ budget.libelle }}</md-option>
+						</md-select>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div flex-gt-xs>
+					<p><b>Situation</b></p>
+					<md-select ng-model="user.situation.id">
+						<md-optgroup label="{{ groupe.libelle }}" ng-repeat="groupe in groupes | orderBy:'libelle'">
+							<md-option ng-value="{{ sit.id }}" ng-repeat="sit in groupe.situations">{{sit.libelle}}</md-option>
+						</md-optgroup>
+					</md-select>
+				</div>
+			</div>
+			<div layout="column">
+				<p><b>Adresse</b></p>
+				<div layout="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>N° de la voie</label>
+						<input ng-model="user.adresse.numeroVoie">
+					</md-input-container>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Type de voie</label>
+						<input ng-model="user.adresse.typeVoie">
+					</md-input-container>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Nom de voie</label>
+						<input ng-model="user.adresse.nomVoie">
+					</md-input-container>
+				</div>
+				<div layout="row">
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Code postal</label>
+						<input ng-model="user.adresse.codepostal">
+					</md-input-container>
+					<md-input-container class="md-block" flex-gt-sm>
+						<label>Ville</label>
+						<input ng-model="user.adresse.ville">
+					</md-input-container>
+				</div>
+			</div>
+			<div>
+				<md-input-container class="md-block" flex-gt-sm>
+					<md-icon class="email"><i class="material-icons">email</i></md-icon>
+					<label>Email</label>
+					<input ng-model="user.email">
+				</md-input-container>
+			</div>
+			<div layout="column">
+				<div layout="row" style="margin-bottom: -25px;">
+					<md-input-container class="md-block" flex=75>
+						<md-icon class="email"><i class="material-icons">phone</i></md-icon>
+						<label>Téléphone</label>
+						<input ng-model="user.telephone">
+					</md-input-container>
+					<md-button flex class="md-raised md-accent" style="height: 5px !important; position:relative; top: 7px;">Vérifier</md-button>
+				</div>
+				<div style="background: #00C0EF; color:white; border-radius: 6px; padding: 7px 10px; margin-bottom : 15px;">
+					Ce numéro sera validé par l'envoi d'un sms
+				</div>
+			</div>
+			<div>
+				<md-input-container class="md-block" flex-gt-sm>
+					<md-icon><i class="material-icons">business</i></md-icon>
+					<label>Code banque</label>
+					<input ng-model="user.codeBanque">
+				</md-input-container>
+			</div>
+			<div>
+				<p><b>IBAN - Identifiant international de compte bancaire</b></p>
+				<div layout="row" class="iban-banque">
+					<md-input-container md-no-float class="md-block">
+						<input ng-model="user.iban1" maxlength=4>
+					</md-input-container>
+					<md-input-container md-no-float class="md-block">
+						<input ng-model="user.iban2" maxlength=4>
+					</md-input-container>
+					<md-input-container md-no-float class="md-block">
+						<input ng-model="user.iban3" maxlength=4>
+					</md-input-container>
+					<md-input-container md-no-float class="md-block">
+						<input ng-model="user.iban4" maxlength=4>
+					</md-input-container>
+					<md-input-container md-no-float class="md-block">
+						<input ng-model="user.iban5" maxlength=4>
+					</md-input-container>
+					<md-input-container md-no-float class="md-block">
+						<input ng-model="user.iban6" maxlength=4>
+					</md-input-container>
+					<md-input-container md-no-float class="md-block">
+						<input ng-model="user.iban7" maxlength=3>
+					</md-input-container>
+				</div>
+				<div>
+					<md-button flex class="md-raised md-accent" style="height: 5px !important; position:relative; top: 7px;">Vérifier</md-button>
+				</div>
+				<div>
+					<small><i>(Les 4 premiers caractères de l'IBAN sont constitués de 1 lettres et 1 chiffres: exemple FR11 XXXX XXXX XXXX XXXX XXXX XXX)</i></small>
+				</div>
+			</div>
+			<div class="bic">
+				<p><b>IBAN - Identifiant international de compte bancaire</b></p>
+				<md-input-container md-no-float class="md-block">
+					<input ng-model="user.bic" maxlength=11>
+				</md-input-container>
+				<div>
+					<small><i>(Le BIC est constitué de 8 ou 11 caractères. Les 4 premiers caractères sont des lettres et définissent la banque ex : BPCEXXXXXX)</i></small>
+				</div>
+			</div>
+			<div layout="row">
+				<md-button flex class="md-raised md-accent" style="height: 5px !important; position:relative; top: 7px;">Annuler</md-button>
+				<md-button flex class="md-raised md-primary" style="height: 5px !important; position:relative; top: 7px;">Enregistrer</md-button>
+			</div>
+		</form>
+	</ion-content>
+</ion-view>

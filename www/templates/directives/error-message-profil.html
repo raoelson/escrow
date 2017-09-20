@@ -1,0 +1,17 @@
+<div class="error-container" ng-show="typechamp" ng-messages="typechamp">
+    <div class="row error" ng-message="required">
+        Ce champ est obligatoire
+    </div>
+    <div class="row error" ng-message="minlength" ng-if="istype == 'telephone'">
+        Le numéro de téléphone doit contenir au moins 10 caractères
+    </div>
+    <div class="row error" ng-message="pattern" ng-if="istype == 'telephone'">
+        Veuillez saisir un téléphone français uniquement
+    </div>
+    <div class="row error" ng-message="pattern" ng-if="istype == 'email'">
+        Veuillez saisir un email valide
+    </div>
+    <div class="row error" ng-message="md-require-match" ng-if="istype == 'autocomplete'">
+        Veuillez sélectionner un code postal existant
+    </div>
+</div>

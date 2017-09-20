@@ -1,0 +1,281 @@
+<style>
+    md-datepicker{
+        position:relative;
+        left : -16px;
+    }
+    md-select.md-default-theme .md-select-value, md-select .md-select-value{
+        position: relative;
+        top: -5px;
+    }
+    .iban-banque md-input-container{
+        padding-bottom: 0;
+        margin-bottom : 0;
+        margin-top :0;
+        padding-top :0;
+    }
+    .bic md-input-container{
+        padding-bottom: 0;
+        margin-bottom : 0;
+        margin-top :0;
+        padding-top :0;
+    }
+</style>
+
+<div style="position: absolute; z-index: 999; background:rgba(0,0,0,0.4); width: 100%; height: 100%;" ng-if="loading">
+	<div layout="row" layout-align="center center" style="height: 100%;">
+		<loading text="" vars="loading" default-show="false"></loading>
+	</div>
+</div>
+<ion-view  scroll="true" title="Profile" id="profile" data-ng-init="verifRib()" ng-cloak>
+    <ion-content padding="true">
+        <div layout="column"> 
+            <form name="formProfil"  ng-submit="update()">
+                <div layout="row" >
+                    <div flex>
+                        <p>Civilité: <span class="radioValue">{{ user.civilite.code}}</span> </p>
+                        <md-input-container class="md-block" flex-gt-sm>
+                         <md-radio-group ng-model="user.civilite.code" name="civilite" required>
+                          <md-radio-button ng-value="civilite.code" ng-repeat="civilite in civilites" class="md-primary">{{civilite.code}}</md-radio-button>
+                      </md-radio-group>
+                      <message-error-profil ng-show="formProfil.$submitted || formProfil.civilite.$untouched" typechamp="formProfil.civilite.$error" istype="radio"></message-error-profil>
+                  </md-input-container>
+              </div>
+              <div flex >
+                   <!--  <md-card flex>
+                       <input type="file" hide id="idpdp" custom-on-change="uploadFile"/>
+                       <img ng-src="{{pdp ? pdp : user.pdp_base64}}"  style="width:100%;height:auto;"  class="md-card-image" alt="Washed Out">
+                       <md-card-actions layout="row" layout-align="center center">
+                          <md-button ng-click='takePhoto()' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="take pohto">
+                             <md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+                         </md-button>
+                         <md-button ng-click='choose()' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="choose picture">
+                             <md-icon md-svg-src="img/icons/ic_collections_black_24px.svg"></md-icon>
+                         </md-button>
+                         <md-button ng-click='choose()' hide-xs class="md-raised">Séléctionner une photo</md-button>
+                     </md-card-actions>   
+                 </md-card> -->
+                 <div layout-xs="row" layout="column">
+                    <input type="file" hidden id="idpdp" custom-on-change="uploadFile"/>
+                    <div class="img-doc" layout="column" layout-align="space-between stretch">
+                    <!-- ng-click='zoomer($event,"jd",jd)' -->
+                        <div class="cover" >
+                            <img   ng-src="{{pdp ? pdp : user.pdp_base64}}"  class="md-card-image" alt="Washed Out">
+                            <!-- <img class="md-card-image" src="img/ben.png" > -->
+                            <div class='description_lib'>
+                                <div  class='description_content'><md-button  class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+                                    <md-icon md-svg-src="img/icons/ic_zoom_in_black_24px.svg"></md-icon>
+                                </md-button></div>
+                            </div>
+                        </div>
+                        <div layout="row" layout-align="center center">
+                        <md-button ng-click='takePhoto()' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+                                <md-icon md-svg-src="img/icons/ic_photo_camera_black_24px.svg"></md-icon>
+                            </md-button>
+                            <md-button ng-click='choose()' class="md-fab md-mini md-default" style="border-radius: 0; background: #eee;" aria-label="Eat cake">
+                                <md-icon md-svg-src="img/icons/ic_collections_black_24px.svg"></md-icon>
+                            </md-button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- nom et prenom -->
+        <div layout="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Nom</label>
+                <input ng-model="user.nom" name="nom" required>
+                <message-error-profil ng-show="formProfil.$submitted || formProfil.nom.$touched" typechamp="formProfil.nom.$error" istype="text"></message-error-profil>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Prénom</label>
+                <input ng-model="user.prenom" name="prenom" required>
+                <message-error-profil ng-show="formProfil.$submitted || formProfil.prenom.$touched" typechamp="formProfil.prenom.$error" istype="text"></message-error-profil>
+            </md-input-container>
+        </div>
+
+        <!-- date naissance bugdet -->
+        <div layout="row" layout-xs="column">
+            <div flex>
+                <p><b>Date de naissance</b></p>
+                <md-datepicker style="width:100%" flex ng-model="user.date_naissance" name="dateNaissance" md-max-date="maxDate" md-placeholder="dd/mm/yyyy" ng-required="true"></md-datepicker>
+                <message-error-profil ng-show="formProfil.$submitted || formProfil.dateNaissance.$touched" typechamp="formProfil.dateNaissance.$error" istype="date"></message-error-profil>
+            </div>
+            <div flex>
+                <p><b>Budget alloué à l'opération</b></p>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-select ng-model="user.budget" name="budget" required placeHolder="Sélectionnez">
+                        <md-option ng-value="budget" ng-selected="budget.id == user.budget.id" ng-repeat="budget in budgets">{{ budget.libelle}}</md-option>
+                    </md-select>
+                    <message-error-profil ng-show="formProfil.$submitted || formProfil.budget.$touched" typechamp="formProfil.budget.$error" istype="select"></message-error-profil>
+                </md-input-container>
+            </div>
+        </div>
+        <!-- Situation -->
+        <div flex-gt-xs>
+            <p><b>Situation</b></p>
+            <md-input-container class="md-block" flex-gt-sm>
+                <md-select ng-model="user.situation" name="situation" required placeHolder="Sélectionnez">
+                    <md-optgroup label="{{ groupe.libelle}}" ng-repeat="groupe in groupes| orderBy:'libelle'">
+                        <md-option ng-selected="sit.id == user.situation.id" ng-value="{{ sit}}" ng-repeat="sit in groupe.situations">{{sit.libelle}}</md-option>
+                    </md-optgroup>
+                </md-select>
+                <message-error-profil ng-show="formProfil.$submitted || formProfil.situation.$touched" typechamp="formProfil.situation.$error" istype="select"></message-error-profil>
+            </md-input-container>
+        </div>
+        <!-- Ville -->
+        <div layout="column">
+            <p><b>Adresse</b></p>
+            <div layout="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>N° de la voie</label>
+                    <input ng-model="user.numVoie" name="numVoie" required>
+                    <message-error-profil ng-show="formProfil.$submitted || formProfil.numVoie.$touched" typechamp="formProfil.numVoie.$error" istype="text"></message-error-profil>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Type de voie</label>
+                    <input ng-model="user.typeVoie" name="typeVoie" required>
+                    <message-error-profil ng-show="formProfil.$submitted || formProfil.typeVoie.$touched" typechamp="formProfil.typeVoie.$error" istype="text"></message-error-profil>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Nom de voie</label>
+                    <input ng-model="user.nomVoie" name="nomVoie" required>
+                    <message-error-profil ng-show="formProfil.$submitted || formProfil.nomVoie.$touched" typechamp="formProfil.nomVoie.$error" istype="text"></message-error-profil>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-autocomplete flex
+                md-input-name="codePostalField"
+                md-selected-item="selectedItem"
+                md-search-text-change="searchTextChange(searchText)"
+                md-search-text="searchText"
+                md-selected-item-change="selectedItemChange(item)"
+                md-items="item in states | filter:searchText:startsWith"
+                md-item-text="item[0]"
+                md-min-length="0"
+                md-require-match
+                md-floating-label="Code postal" required>
+                <md-item-template>
+                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item[0]}}</span>
+                </md-item-template>
+                <md-not-found>
+                    Aucun résultat pour "{{searchText}}".
+                </md-not-found>
+                <message-error-profil ng-show="formProfil.$submitted || formProfil.codePostalField.$touched" typechamp="formProfil.codePostalField.$error" istype="autocomplete"></message-error-profil>
+            </md-autocomplete>
+
+            <md-input-container class="md-block" flex>
+                <label>Ville</label>
+                <input readonly ng-model="user.ville" name="ville" required>
+                <message-error-profil ng-show="formProfil.$submitted || formProfil.ville.$touched" typechamp="formProfil.ville.$error" istype="text"></message-error-profil>
+            </md-input-container>
+        </div>
+    </div>
+    <!-- email -->
+
+    <md-input-container class="md-block" flex-gt-sm>
+        <md-icon md-svg-src="img/icons/ic_email_black_24px.svg"></md-icon>
+        <label>Email</label>
+        <input ng-disabled="(user.etape > 1)" ng-model="user.email" name="email" required ng-pattern="/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/">
+        <message-error-profil ng-show="formProfil.$submitted || formProfil.email.$touched" typechamp="formProfil.email.$error" istype="email"></message-error-profil>
+    </md-input-container>
+
+    <!-- telephone -->
+
+    <div layout="column">
+        <div layout="row" style="margin-bottom: -25px;">
+            <!-- ng-pattern="/^(0|\+33|0033|\+\(33\))[-. ]?[0-9]([-. ]?\d{2}){4}[-. ]?$/" -->
+            <md-input-container class="md-block" flex=75>
+                <md-icon md-svg-src="img/icons/ic_smartphone_black_24px.svg"></md-icon>
+                <label>Téléphone</label>
+                <input ng-readonly="true" ng-model="user.telephone" name="telephone" required  minlength="10" maxlength="19">
+                <message-error-profil ng-show="formProfil.$submitted || formProfil.telephone.$touched" typechamp="formProfil.telephone.$error" istype="telephone"></message-error-profil>
+            </md-input-container>
+            <!-- ng-disabled="(user.code_telephone != '')"  -->
+            <md-button ng-disabled="checkCodeExist()" style="height: 5px !important; position:relative;bottom:3px"  flex class="md-raised md-accent"  ng-click="sendTelVerification()">Vérifier</md-button>
+        </div>
+    <!-- ng-show="isVerified" 
+        style="height: 5px !important; position:relative; top: 7px;"
+    -->
+    <div ng-show="isVerified" >
+        <md-input-container class="md-block" flex="30">
+            <label>Code</label>
+            <input ng-model="user.code_telephone" name="code" ng-required="!checkCodeExist()" ng-pattern="user.code_telephone_temporaire_decode" >
+
+            <div ng-show="formProfil.$submitted || formProfil.code.$touched" typechamp="formProfil.code.$error" class="error-container" ng-messages="formProfil.code.$error">
+                <div class="row error" ng-message="pattern">
+                    Code incorrecte
+                </div>
+            </div>
+        </md-input-container>
+    </div>
+    <!-- ng-show="isVerified" -->
+    <div ng style="background: #00C0EF; color:white; border-radius: 6px; padding: 7px 10px; margin-bottom : 15px;">
+        Ce numéro sera validé par l'envoi d'un sms
+    </div>
+                <!-- <div ng-hide="isVerified" style="background: #00C0EF; color:white; border-radius: 6px; padding: 7px 10px; margin-bottom : 15px;">
+                 Ce telephone est déjà vérifier
+             </div> -->
+         </div>
+
+         <!-- iban -->
+         <div layout="column">
+            <p><b>IBAN - Identifiant international de compte bancaire</b>
+                <input  type="hidden" style="width: 100%;" value="{{user.iban1}}{{user.iban2}}{{user.iban3}}{{user.iban4}}{{user.iban5}}{{user.iban6}}{{user.iban7}}">
+            </p>
+            <div layout="row" class="iban-banque">
+                <md-input-container md-no-float class="md-block">
+                    <input ng-disabled="(user.etape > 1)" ng-model="user.iban1" maxlength=4 name="iban1">
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <input ng-disabled="(user.etape > 1)" ng-model="user.iban2" maxlength=4 name="iban2">
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <input ng-disabled="(user.etape > 1)" ng-model="user.iban3" maxlength=4 name="iban3">
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <input ng-disabled="(user.etape > 1)" ng-model="user.iban4" maxlength=4 name="iban4">
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <input ng-disabled="(user.etape > 1)" ng-model="user.iban5" maxlength=4 name="iban5">
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <input ng-disabled="(user.etape > 1)" ng-model="user.iban6" maxlength=4 name="iban6">
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <input ng-disabled="(user.etape > 1)" ng-model="user.iban7" maxlength=3 name="iban7">
+                </md-input-container>
+            </div>
+            <div class="row error" ng-show="verif">
+                <i class="ion-alert-circled"></i>
+                Les 4 premiers caractères de l'IBAN sont constitués de 1 lettres et 1 chiffres: exemple FR11 XXXX XXXX XXXX XXXX XXXX XXX
+            </div>
+            <div>
+                <md-button ng-disabled="(user.etape > 1)" ng-click="verifRib()" flex class="md-raised md-accent" style="height: 5px !important; position:relative; top: 7px;">Vérifier</md-button>
+            </div>
+            <div>
+                <small><i>(Les 4 premiers caractères de l'IBAN sont constitués de 1 lettres et 1 chiffres: exemple FR11 XXXX XXXX XXXX XXXX XXXX XXX)</i></small>
+            </div>
+        </div>
+
+        <div class="bic" layout="column">
+            <p><b>IBAN - Identifiant international de compte bancaire</b></p>
+            <md-input-container md-no-float class="md-block">
+                <input ng-disabled="(user.etape > 1)" ng-model="user.rib.bic" name="bic" maxlength=11 required placeHolder="BIC">
+                <message-error-profil ng-show="formProfil.$submitted || formProfil.bic.$touched" typechamp="formProfil.bic.$error" istype="text"></message-error-profil>
+            </md-input-container>
+            <div>
+                <small><i>(Le BIC est constitué de 8 ou 11 caractères. Les 4 premiers caractères sont des lettres et définissent la banque ex : BPCEXXXXXX)</i></small>
+            </div>
+        </div>
+        <!-- fin iban -->
+        <!-- espace enregistrement -->
+        <div layout="row">
+            <md-button flex class="md-raised md-accent" >Annuler</md-button>
+            <md-button flex class="md-raised md-primary" type="submit" ng-disabled="formProfil.$invalid || verif">Enregistrer</md-button>
+        </div>
+    </form>
+</div>
+
+</ion-content>
+</ion-view>

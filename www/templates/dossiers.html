@@ -1,0 +1,18 @@
+<ion-view title="Dashboard"  id="dashboard" ng-cloak>
+<!-- style="height:100% !important;" -->
+	<ion-content padding="true" > <!-- padding="true" -->
+		<div>
+			<div>
+				<!--       Démmarrer une nouvelle transaction -->
+				<md-button ui-sref="escrow.transaction.etape1" class="md-raised">Nouvelle transaction</md-button>
+			</div>
+			<div layout="column" flex style="margin-bottom: 50px;">
+				<div ng-include="'templates/transaction-table.html'"></div>
+				<div ng-include="'templates/transaction-terminer-table.html'"></div>
+			</div>
+		</div>
+<!-- 		
+		<div layout="column" style="height:100% !important;">
+		</div> -->
+	</ion-content>
+</ion-view>

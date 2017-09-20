@@ -1,0 +1,51 @@
+<md-toolbar class="md-table-toolbar md-accent" ng-show="!options.rowSelection || !selectedAcht.length">
+				<div class="md-toolbar-tools" layout="row"  layout-align="space-around center">
+					<span>Transaction (acheteur)</span>
+					<span flex></span>
+					<md-button ng-click="loadTransactionAcht()" aria-label="invite"  >
+						<md-icon style="color:#FFF !important" md-svg-src="img/icons/ic_autorenew_black_24px.svg"></md-icon> 
+					</md-button>
+	<!-- 				<md-button flex aria-label="invite" class="md-raised" >
+						<md-icon md-svg-src="img/icons/ic_filter_list_black_24px.svg"></md-icon> 
+					</md-button> --> 
+				</div>
+			</md-toolbar>
+			<md-toolbar class="md-table-toolbar alternate md-accent md-primary" ng-show="options.rowSelection && selectedAcht.length">
+				<div class="md-toolbar-tools" layout="row"  layout-align="space-around center">
+					<span>{{selectedAcht.length}} {{selectedAcht.length > 1 ? 'éléments sélectionnés' : 'élément sélectionné'}} </span>
+					<span flex></span>
+					<!-- class="md-raised" -->
+					<md-button ng-show="isRattacher"  aria-label="invite"  ng-click="editTransaction(selectedAcht[0])">
+						<md-icon md-svg-src="img/icons/ic_create_black_24px.svg"></md-icon> 
+					</md-button> 
+					<md-button ng-show="!isRattacher"  aria-label="invite"  ng-click="rattachementTransaction(selectedAcht[0])">
+						<md-icon md-svg-src="img/icons/ic_link_black_24px.svg"></md-icon> 
+					</md-button> 
+
+				</div>
+			</md-toolbar>
+
+			<md-table-container md-whiteframe="3">
+				<table data-md-table data-md-row-select="true" multiple="false" data-md-on-select="log" data-ng-model="selectedAcht" md-progress="promiseAcht">
+					<thead ng-if="!options.decapitate" md-head data-md-order="query.order" md-on-reorder="onReorder">
+						<tr md-row>
+							<th md-column md:order:by="id"><span>N°</span></th>
+							<th md-column md:order:by="titre"><span>Titre transaction</span></th>
+							<th md-column data-md-order-by="type_transaction.libelle"><span>Type transaction</span></th>
+							<th md-column data-md-order-by="date_creation"><span>Date création</span></th>
+
+						</tr>
+					</thead>
+					<tbody md-body>
+						<tr md-row md-select="transAcht" md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="false"  data-ng-repeat="transAcht in transactionAcheteur | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit">
+							<td md-cell>{{transAcht.id}}</td>
+							<td md-cell>{{transAcht.titre}}</td>
+							<td md-cell>{{transAcht.type_transaction.libelle}}</td>
+							<td md-cell>{{transAcht.date_creation | date:'dd/MM/yyyy'}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</md-table-container>
+
+			<data-md-table-pagination md-limit="query.limit" md-limit-options="true" md-page="query.page" md-total="{{ transactionAcheteur.length }}" md-on-paginate="onPaginate" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></data-md-table-pagination> 
+		</div>

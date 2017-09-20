@@ -1,0 +1,51 @@
+<md-toolbar class="md-table-toolbar md-accent" >
+  <div class="md-toolbar-tools">
+    <span>Transaction en terminé</span>
+    <span flex></span>
+   <!--  <md-button class="md-icon-button" ng-click="loadStuff()">
+      <md-icon md-svg-src="img/icons/ic_refresh_black_24px.svg"></md-icon>
+    </md-button>
+    <md-button class="md-icon-button">
+      <md-icon md-svg-src="img/icons/ic_filter_list_black_24px.svg">filter_list</md-icon>
+    </md-button> -->
+  </div>
+</md-toolbar>
+
+<md-toolbar class="md-table-toolbar alternate md-accent" ng-show="options.rowSelectionTerminer && selectedTerminer.length">
+  <div class="md-toolbar-tools">
+    <span>{{selectedTerminer.length}} {{selectedTerminer.length > 1 ? 'éléments sélectionnés' : 'élément sélectionné'}} </span>
+    <span flex></span>
+    <md-button class="md-icon-button">
+      <md-icon md-svg-src="img/icons/ic_delete_black_24px.svg"></md-icon>
+    </md-button>
+	<md-button class="md-icon-button">
+		<md-icon md-svg-src="img/icons/ic_picture_as_pdf_black_24px.svg"></md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
+
+<md-table-container>
+  <table data-md-table  data-ng-model="selectedTerminer">
+    <thead md-head data-md-order="queryTerminer.order" md-on-reorder="onReorder">
+      <tr md-row>
+        <th md-column md:order:by="id"><span>N°</span></th>
+        <th md-column md:order:by="titre"><span>Titre transaction</span></th>
+        <th md-column data-md-numeric data-md-order-by="prix" data-md-desc><span>Montant</span></th>
+        <th md-column data-md-order-by="type_transaction.libelle"><span>Type transaction</span></th>
+        <th md-column data-md-order-by="date_creation"><span>Date création</span></th>
+        
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select-id="id" data-md-on-select="log" md-on-deselect="deselect" x-md-auto-select="options.autoSelect" data-ng-repeat="transaction in transactions.data | filter : filterTransactionTerminer | orderBy: queryTerminer.order | limitTo: queryTerminer.limit : (queryTerminer.page - 1) * queryTerminer.limit">
+        <td md-cell>{{transaction.id}}</td>
+        <td md-cell>{{transaction.titre}}</td>
+        <td md-cell>{{transaction.prix}}</td>
+        <td md-cell>{{transaction.type_transaction.libelle}}</td>
+        <td md-cell>{{transaction.date_creation | date:'EEEE dd LLLL'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<data-md-table-pagination md-limit="queryTerminer.limit" md-limit-options="limitOptions" md-page="queryTerminer.page" md-total="{{transactions.count}}" md-on-paginate="onPaginate" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></data-md-table-pagination>

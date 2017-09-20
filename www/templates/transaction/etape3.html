@@ -1,0 +1,27 @@
+<ion-view scroll="false" title="Connexion" id="page2">
+	<ion-content padding="false" >
+		<md-content>
+		<div layout="column" layout-padding>
+			<div flex md-whiteframe=3>
+				<div layout="row" ng-repeat="info in infos" ng-show="info.value.length">
+					<p flex>{{info.label}}</p>
+					<p flex>{{info.value}}</p>
+				</div>
+			</div>
+		</div>
+		<div layout="column" layout-padding>
+			<p>Avant de cliquer sur le bouton Valider, veuillez lire et accepter les CGV et CGU</p>
+			<md-checkbox  ng-value="cgv" ng-model="cgv" aria-label="Checkbox 1">
+				Conditon Générale de Vente (CGV).
+			</md-checkbox>
+<!-- 			<md-checkbox  ng-value="cgu" ng-model="cgu" ng-change="setConditions(cgu)" aria-label="Checkbox 1">
+				Condition Générale d'Utilisation (CGU).
+			</md-checkbox> -->
+		</div>
+		<div layout="row" layout-align="center center">
+			<md-button ng-disabled="!(cgv)" ng-click="valider(cgu)" class="md-raised md-primary">Valider</md-button>
+		</div>
+		</md-content>
+
+	</ion-content>
+</ion-view>

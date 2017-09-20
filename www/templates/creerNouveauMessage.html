@@ -1,0 +1,45 @@
+<div layout="column" layout-padding>
+    <form name="creerMessage" novalidate ng-submit="addMessage()">
+        <div>
+            <h2>Poser une question au support</h2>
+            <span>Veuillez remplir le formulaire. Nous vous répondrons dans les plus brefs délais. </span>
+        </div>
+        </br>
+
+        <div layout="column">
+
+            <md-input-container>
+                <label>Type demande</label>
+                <md-select ng-model="msg.objet" required>
+                    <!--                    <md-option><em>None</em></md-option>-->
+                    <md-option ng-repeat="typeDemande in typeDemandes" ng-value="typeDemande.value">
+                        {{typeDemande.value}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Nom/Prenom</label>
+                <input ng-model="msg.nom"  ng-disabled="true">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Email</label>
+                <input ng-model="msg.email"  ng-disabled="true">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Numéro de telephone</label>
+                <input ng-model="msg.telephone"    ng-disabled="true">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Votre message</label>
+                <input name="message" ng-model="msg.contenu" required >
+            </md-input-container>
+        </div>
+        <div layout="row">
+            <md-button flex class="md-raised md-accent" style="height: 5px !important; position:relative; top: 7px;">Annuler</md-button>
+            <md-button flex class="md-raised md-primary" style="height: 5px !important; position:relative; top: 7px;" ng-disabled="creerMessage.$invalid" type="submit">Envoyer</md-button>
+        </div>
+    </form>
+</div>

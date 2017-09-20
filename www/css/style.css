@@ -1,0 +1,283 @@
+/* Empty. Add your own CSS if you like */
+*{
+  font-family: Roboto !important;
+	/*font-family: 'Montserrat Hairline', arial;*/
+}
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+}
+.slider {
+  height: 100%;
+}
+.slider-slide {
+  padding-top: 80px;
+  color: #000;
+  background-color: #fff;
+  text-align: center;
+
+  font-family: Roboto,"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-weight: 300;
+}
+
+#logo {
+  margin: 30px 0px;
+}
+
+#list {
+  width: 170px;
+  margin: 30px auto;
+  font-size: 20px;
+}
+#list ol {
+  margin-top: 30px;
+}
+#list ol li {
+  text-align: left;
+  list-style: decimal;
+  margin: 10px 0px;
+}
+
+.button.ng-hide{
+  display:none;
+}
+
+
+.orange {
+ /*background: #ff9524 !important;*/
+ background-color:#FF9400 !important;
+ color: #FFF !important;
+}
+.cyan{
+ /*background: #7caabe !important;*/
+ background-color: rgb(81,174,194) !important;
+  color: #FFF !important;
+}
+.blue{
+  background: #0c2275 !important;
+  color : #FFF;
+}
+.orange-text{
+  color:#ff9524 !important;
+}
+.cyan-text{
+ color:#7caabe !important;
+}
+.content-accueil{
+ margin:0;
+ padding:0;
+ background: url('../img/fond-flou.png') no-repeat center fixed;
+ background-size: cover;
+}
+
+.div-auth{
+  position: absolute;
+  bottom: 50px;
+}
+
+.div-connexion{
+  position: absolute !important; 
+  bottom: 0px; 
+  width: 100%
+}
+.bck-ccm{
+  background-image: url('../img/laptop-card.jpg');
+  background-repeat: no-repeat; 
+  background-size: 100% auto;
+  height: 470px;
+}
+
+.error-denied{
+ background-image: url('../img/denied.svg');
+ background-repeat: no-repeat; 
+ background-size: 50% auto;
+}
+/*** erreur **/
+
+.error {
+  padding: 10px 16px;
+  font-size: 11px;
+  color: #B83E2C;
+  vertical-align: middle;
+}
+
+.error i {
+  font-size: 24px;
+  color: #B83E2C;  
+  vertical-align: middle;
+}
+
+
+
+.has-errors {
+  border-bottom: 3px solid #B83E2C;
+}
+
+.no-errors {
+  border-bottom: 3px solid green;
+}
+.content-bg{
+  background: url('../img/fond-flou.png') no-repeat center fixed;
+  background-size: cover;
+}
+.conteneur-login{
+  top: 25%;
+}
+.header-override{
+  height: 65px !important
+}
+.active-item{
+  background-color: rgb(255,152,0);
+  color: #FFF !important;
+}
+white{
+  background-color: #FFF !important;
+}
+.scroll-content{
+  background-size: cover;
+}
+.marg-left-5{
+  margin-left: 5px !important;
+}
+.no-margin{
+  margin: 0;
+}
+.no-padding{
+  padding: 0;
+}
+.btn-lien{
+  min-width:0;
+}
+.btn-cgu{
+  width:35px;
+}
+
+.ext-content {
+  padding: 50px;
+  margin: 20px;
+  background-color: #FFF; }
+
+/*.container-img { position: relative; height: 200px; width: 200px; }*/
+/*.container-img img { position: absolute; right: 0; bottom: 0; }*/
+
+  .item-image-docs {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 50%; /* here the desired aspect ratio */
+  }
+  .item-image-docs img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .content-views-style{
+    background-color: #CCC !important;
+  }
+
+  /*** Overribe materail **/
+
+.md-button {
+    text-transform: none;
+}
+/*.mb-button:first-letter {
+  text-transform: capitalize !important;
+}*/
+md-input-container {
+  margin:6px 0;
+}
+.slider-pager{
+  bottom: 80px !important;
+}
+
+input:not(:focus){
+ /* border-bottom: 1px #C7C7CD solid ;  607D8B*/
+ border-bottom: 1px solid rgba(199, 199, 205,.6);
+  -webkit-background-clip: padding-box; /* for Safari */
+  background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+  
+}
+.ng-valid{
+
+}
+.div-connexion-bottom{
+  position: absolute !important; 
+  bottom: 10px; 
+  width: 100%
+}
+.white{
+  color: #FFF;
+}
+
+.titre-document{
+      border-left: 3px solid #585858;
+    background-color: #FFF;
+    /*height: 40px;*/
+    line-height: 3;
+        /*height: auto;*/
+    box-shadow: 1px 1px 1px #B7BBC5;
+}
+
+/**** TENA IMPORTANT ***/
+  .pane{
+    overflow: auto !important;
+    min-height: 100% !important;
+  }
+/*****/
+  .img-doc{
+    background-color: #FFF;
+    box-shadow: 1px 1px 1px #B7BBC5;
+  }
+  .cover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position:relative;
+
+/*    width: 200px;
+height: 200px;*/
+}
+
+.cover > img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+/*div.wrapper_lib{
+    position:relative;
+}*/
+div.description_lib{
+  position:absolute;
+  bottom:0px;
+  left:0px;
+  display:flex;
+  width: 100%;
+  background-color:#FFF;
+  color:#FFF;
+  height: 100%;
+  opacity: 0.3;
+}
+div.description_content{
+  margin: auto;
+}
+p.alert-msg{
+  background: #DD4B39 !important;
+  color: #FFF;
+
+}
+.alert-msg-info{
+  background: #5495CA !important;
+  color: #FFF;
+}
+.text-yellow{
+  color: #FF6D00;
+}
+.text-muted{
+  color: #777777;
+}
+
+/* MAP */
+.angular-google-map-container { height: 400px; }

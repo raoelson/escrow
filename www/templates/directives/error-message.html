@@ -1,0 +1,30 @@
+<div class="error-container" ng-show="typechamp" ng-messages="typechamp">
+    <div class="row error" ng-message="required" >
+        Ce champ est obligatoire
+    </div>
+    <div class="row error" ng-message="minlength" ng-if="istype == 'password'">
+        Votre mot de passe doit contenir les éléments suivants: 8 caractères minimun
+    </div> 
+    <div class="row error" ng-message="minlength" ng-if="istype == 'telephone'">
+        Le numéro de téléphone doit contenir au moins 10 caractères
+    </div>
+    <div class="row error" ng-message="maxlength">
+        Longueur maximale de ce champ est de 20 caractères
+    </div> 
+    <div class="row error" ng-if="istype == 'password'" ng-message="pattern">
+        Votre mot de passe doit contenir les éléments suivants: 8 caractères minimun, au moins un caratère majuscule, un caractère minuscule et un caratère numérique
+    </div>
+    <div class="row error" ng-if="istype == 'telephone'" ng-message="pattern">
+        Veuillez saisir un téléphone français uniquement
+    </div>
+
+    <div class="row error" ng-if="istype == 'email'" ng-message="pattern">
+        Veuillez saisir un email valide
+    </div>
+    <div class="row error" ng-if="istype == 'vemail'" ng-message="pattern">
+        Veuillez saisir le même email
+    </div>
+    <div class="row error" ng-if="istype == 'vpassword'" ng-message="pattern">
+        Veuillez saisir le même mot de passe
+    </div>
+</div>

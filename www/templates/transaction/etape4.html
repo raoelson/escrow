@@ -1,0 +1,16 @@
+	<div style="position: absolute; z-index: 999; background:rgba(0,0,0,0.4); width: 100%; height: 100%;" ng-if="loading">
+		<div layout="row" layout-align="center center" style="height: 100%;">
+			<loading text="Enregistrement de la transaction" vars="loading" default-show="false"></loading>
+		</div>
+	</div>
+	<ion-view scroll="false" title="Connexion" id="page2">
+		<ion-content padding="false" >
+			<form novalidate name="etape4">
+				<md-content>
+				<md-content style="height: 100%;" ng-if="transaction.type_transaction.code == 'AUTO'" ng-include="'templates/transaction/etape4-auto.html'"></md-content>
+
+					<md-content style="height: 100%;" ng-if="transaction.type_transaction.code != 'AUTO'" ng-include="'templates/transaction/etape4-autre.html'"></md-content>
+				</md-content>
+			</form>
+		</ion-content>
+	</ion-view>

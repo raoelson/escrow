@@ -1,0 +1,13 @@
+<md-input-container class="md-icon-float md-block">
+    <label>Adresse e-mail</label>
+    <md-icon md-svg-src="img/icons/ic_mail_outline_black_24px.svg"></md-icon>
+    <input type="email" name="email" ng-model="email" ng-pattern="/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/" required>
+    <message-error ng-show="form.$submitted || form.email.$dirty" typechamp="form.email.$error" istype="email"></message-error>
+</md-input-container>
+
+<md-input-container class="md-icon-float md-block" ng-if="showVerifEmail">
+    <label>Vérification email</label>
+    <md-icon md-svg-src="img/icons/ic_mail_outline_black_24px.svg"></md-icon>
+    <input type="email" name="verifemail" ng-model="verifemail" ng-pattern="email" ng-disabled="form.email.$invalid" required>
+    <message-error ng-if="showVerifEmail && form.verifemail.$dirty" typechamp="form.verifemail.$error" istype="vemail"></message-error>
+</md-input-container>

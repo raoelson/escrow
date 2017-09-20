@@ -1,0 +1,66 @@
+<style>
+	.scroll-content{
+		
+		
+		background-size: cover;
+	}
+	.scroll-content{
+		
+		background-size: cover;
+	}
+	.error{
+		color: red;
+		font-weight: bold;
+		text-align: center;
+	}
+</style>
+<md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools" md-whiteframe=4>
+        <md-button style="color:white;" class="md-icon-button" aria-label="Settings">
+          <i class="material-icons">arrow_back</i>
+        </md-button>
+        <h2 style="color:white;">
+          <span>Création compte</span>
+        </h2>
+      </div>
+    </md-toolbar>
+<ion-view title="Signup" id="page3">
+    <ion-content padding="true" >
+        <form id="signup-form2" class="list">
+			<div layout="row" layout-align="center center">
+				<div flex=90 >
+					<div md-whiteframe="8" style="background:white; position:relative; top:100px;
+													border-radius: 6px; padding: 10px;" layout="column">
+						
+						<p ng-if="error" class="error">{{ error.message }}</p>
+						<md-input-container class="md-block" flex-gt-sm>
+							 <md-icon class="email"><i class="material-icons">phone</i></md-icon>
+							<label>Téléphone</label>
+							<input ng-model="user.telephone">
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<md-icon class="email"><i class="material-icons">email</i></md-icon>
+							<label>Email</label>
+							<input ng-model="user.email">
+						</md-input-container>
+						<md-input-container class="md-block" flex-gt-sm>
+							<md-icon class="email"><i class="material-icons">remove_red_eye</i></md-icon>
+							<label>Mots de passe</label>
+							<input ng-model="user.password" type="password" />
+						</md-input-container>
+						<md-checkbox ng-model="data.cb1" aria-label="Checkbox 1">
+							Accepter la condition général du site
+						</md-checkbox>
+						<div layout="column" layout-align="center center" ng-show="onRegister">
+							<md-progress-circular md-mode="indeterminate" ></md-progress-circular>
+							<span>Création de votre compte</span>
+							<br />
+						</div>
+						<md-button ng-click="inscrir(user)" class="md-raised md-primary md-hue-2" ng-hide="onRegister">Créer un compte</md-button>
+						<md-button md-no-ink class="md-primary md-accent">Se connecter</md-button>
+					</div>
+				</div>
+			</div>
+        </form>
+    </ion-content>
+</ion-view>

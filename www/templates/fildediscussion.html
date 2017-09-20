@@ -1,0 +1,29 @@
+<div layout="column" layout-padding scroll="true">
+    <md-list-item class="md-3-line"  ng-click="null">
+        <img ng-src="{{user.pdp_base64}}" class="md-avatar" alt="img/adam.jpg" />
+        <div class="md-list-item-text" layout="column">
+            <h3>{{ fil.nom}}</h3>
+            <h4>{{ fil.contenu}}</h4>
+            <p>Le {{ fil.date_envoi| date : 'dd/MM/yyyy hh:mm' }}</p>
+        </div>
+    </md-list-item> 
+    <md-divider ></md-divider>
+    <md-list-item class="md-3-line" ng-repeat="msg in fil.fil_discussion.messages"  ng-click="null">
+        <img ng-src="img/adam.jpg" class="md-avatar" alt="img/adam.jpg" />
+        <div class="md-list-item-text" layout="column">
+            <h3>{{ msg.user.username}}</h3>
+            <h4>{{ msg.contenu}}</h4>
+            <p>Le {{ msg.date_envoi| date : 'dd/MM/yyyy hh:mm' }}</p>
+        </div>
+    </md-list-item>
+    <form name="reponseFilDiscussion" novalidate ng-submit="reponseFilDiscussionMessage()" ng-show="fil.fil_discussion.repondu">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Votre message</label>
+            <input name="message" ng-model="msg.contenu" required >
+        </md-input-container>
+        <div layout="row">
+            <md-button flex class="md-raised md-accent">Annuler</md-button>
+            <md-button flex class="md-raised md-primary" ng-disabled="reponseFilDiscussion.$invalid" type="submit">Envoyer</md-button>
+        </div>
+    </form>
+</div>

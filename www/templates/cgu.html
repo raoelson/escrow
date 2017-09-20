@@ -1,0 +1,36 @@
+<md-dialog aria-label="Mango (Fruit)">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>CUG</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_black_24px.svg"></md-icon>
+                    <!-- <i class="material-icons">close</i> -->
+                  <!--   <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon> -->
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <h3>Conditions générale d'utilisation</h3>
+                <div layout="row" class="text-center" layout-margin>
+                 <img style="margin: auto; max-width: 100%;" alt="Lush mango tree" ng-src="./img/mySafedeal.png">
+                 </div>
+                <p>
+                    {{cgu[0].cgu}}
+                </p>
+
+               
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel()">
+                Fermer
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,75 @@
+<md-dialog aria-label="Vos documents">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Vos documents</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <i class="material-icons">close</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab>
+          <md-tab-label>
+            <span>Pièce d'identité</span>
+          </md-tab-label>
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Pièce d'identité</h1>
+            <md-card>
+              <md-card-header>
+                <md-card-avatar>
+                  <img src="img/logo.svg"/>
+                </md-card-avatar>
+                <md-card-header-text>
+                  <span class="md-title">Angular</span>
+                  <span class="md-subhead">Material</span>
+                </md-card-header-text>
+              </md-card-header>
+              <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline">Card header</span>
+                </md-card-title-text>
+              </md-card-title>
+              <md-card-content>
+                <p>
+                  The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+                  two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+                </p>
+              </md-card-content>
+            </md-card>
+          </md-content>
+        </md-tab>
+        <md-tab label="Justificatif de domicile">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Tab Two</h1>
+            <p>Notre test.</p>
+            <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+          </md-content>
+        </md-tab>
+        <md-tab label="Relevé d'Identité bancaire">
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Tab Three</h1>
+            <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+        More on Wikipedia
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="answer('not useful')" >
+        Not Useful
+      </md-button>
+      <md-button ng-click="answer('useful')" style="margin-right:20px;" >
+        Useful
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

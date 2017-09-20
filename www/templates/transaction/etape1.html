@@ -1,0 +1,194 @@
+<style>
+	md-input-container{
+		margin-bottom: 0;
+	}
+</style>
+<div style="position: absolute; z-index: 999; background:rgba(0,0,0,0.4); width: 100%; height: 100%;" ng-if="loading">
+	<div layout="row" layout-align="center center" style="height: 100%;">
+		<loading text="Enregistrement de la transaction" vars="loading" default-show="false"></loading>
+	</div>
+</div>
+<!-- <ion-view ng-show="userEtape > 3" scroll="false" title="Connexion" id="page2"> -->
+<ion-view scroll="false" title="Connexion" id="page2"> 
+	<ion-content padding="false">
+		<div>
+			<div>
+				<form name="etape1Form" layout="column" layout-padding>
+					<div layout="column">
+						<md-input-container>
+							<label>Type transaction</label>
+							<md-select ng-disabled="verifIsAcheteur()" ng-change="changeType(transaction.type_transaction)" ng-model="transaction.type_transaction" required name="type">
+								<md-option ng-selected="tType.id == transaction.type_transaction.id" ng-repeat="tType in transactionTypes" ng-value="tType">
+									{{tType.libelle}}
+								</md-option>
+							</md-select>
+						</md-input-container>
+					</div>
+					<div layout="row" ng-hide="verifIsAcheteur()">
+						<md-radio-group required ng-init="transaction.user ='VEND'" ng-model="transaction.user" layout="row">
+							<md-radio-button value="VEND"> Vendeur </md-radio-button>
+							<md-radio-button value="ACHT"> Acheteur </md-radio-button>
+						</md-radio-group>
+					</div>
+					<!-- (transation.acheteur_id && user.id == transation.acheteur_id.id) -->
+					
+					<div ng-show="verifIsAcheteur()" >
+						Vous êtes acheteur
+					</div>
+					<div layout="column">
+						<md-input-container class="md-block" flex-gt-sm>
+							<label>Titre de la transaction</label>
+							<input ng-disabled="verifIsAcheteur()" ng-model="transaction.titre" type="text" name="titre" required>
+						</md-input-container>
+					</div>
+					<div layout="column">
+						<md-input-container  ng-if="transaction.user == 'VEND'" class="md-block" flex-gt-sm style="margin-bottom: 0;">
+							<label >Adresse email de l'acheteur</label>
+							<input type="email" ng-model="transaction.adresse_email_acheteur" name="adresse_email_acheteur" ng-required="(transaction.user == 'VEND' && !transaction.acheteur)" ng-disabled="(transaction.acheteur || verifIsAcheteur())">
+						</md-input-container>
+						<md-input-container  ng-if="transaction.user == 'ACHT'" class="md-block" flex-gt-sm style="margin-bottom: 0;">
+							<label >Adresse email du vendeur</label>
+							<input type="email" ng-model="transaction.adresse_email_vendeur" name="adresse_email_vendeur" ng-required="transaction.user== 'ACHT'">
+						</md-input-container>
+						<md-checkbox ng-if="!verifIsAcheteur()" ng-change="transaction.adresse_email_acheteur = transaction.acheteur ? '' : transaction.adresse_email_acheteur" ng-if="transaction.user == 'VEND'" ng-model="transaction.acheteur" ng-hide="mustHave"  aria-label="Acheteur">
+							Je n'ai pas encore d'acheteur
+						</md-checkbox>
+					</div>
+					<div layout="column" ng-if="(verifIsAcheteur() || (transaction.user == 'ACHT'))">
+						<md-checkbox  ng-init="transaction.livraison = false" ng-model="transaction.livraison" aria-label="Livraison">
+							Livraison
+						</md-checkbox>
+						<div layout="column">
+							<div layout="column" ng-if="!transaction.livraison">
+								<div layout="column">
+									<md-input-container class="md-block" flex-gt-sm style="margin-bottom: 0;">
+										<label>Adresse de remise des clés</label>
+										<input ng-required="!transaction.livraison" ng-model="transaction.adresse_remise_cle" name="adresse_remise_cle" ng-required="!transaction.livraison">
+									</md-input-container>
+								</div>
+								<div layout="row">
+									<md-autocomplete flex
+									md-input-name="codePostalField"
+									md-selected-item="selectedItem"
+									md-search-text-change="searchTextChange(searchText)"
+									md-search-text="searchText"
+									md-selected-item-change="selectedItemChange(item)"
+									md-items="item in states | filter:searchText:startsWith"
+									md-item-text="item[0]"
+									md-min-length="0"
+									md-require-match
+									md-floating-label="Code postal">
+									<md-item-template>
+										<span md-highlight-text="searchText" md-highlight-flags="^i">{{item[0]}}</span>
+									</md-item-template>
+									<md-not-found>
+										Aucun résultat pour "{{searchText}}".
+									</md-not-found>
+								</md-autocomplete>
+								<md-input-container class="md-block" flex>
+									<label>Ville</label>
+									<input ng-model="transaction.ville_remise_cle" name="ville_remise_cle" ng-required="!transaction.livraison">
+									<message-error-profil ng-show="formProfil.$submitted || formProfil.ville_remise_cle.$dirty" typechamp="formProfil.ville_remise_cle.$error" istype="text"></message-error-profil>
+								</md-input-container>
+							</div>
+							<div layout="column">
+								<md-datepicker ng-required="!transaction.livraison" style="position: relative;left: -15px; margin-bottom: 15px;" flex ng-model="transaction.date_remise_cle" md-placeholder="Date du rdv"></md-datepicker>
+							</div>
+						</div>
+						<!-- Livraison autre que auto moto-->
+						<div layout-padding ng-if="transaction.livraison && transaction.bien.length == 0" class="alert-msg-info">
+							Vous pourrez estimer et valider les frais de livraison à la prochaine étape
+						</div>
+						<!-- Livrasion auto -->
+						<div ng-if="transaction.livraison && transaction.bien.id">
+							<div layout="row">
+								<md-autocomplete flex
+								md-selected-item="codePostalOrigine"
+								md-search-text-change="searchTextOrigChange(cporig)"
+								md-search-text="cporig"
+								md-selected-item-change="selectedItemOrigChange(item)"
+								md-items="item in states | filter:cporig:startsWith"
+								md-item-text="item[0]"
+								md-min-length="0"
+								md-floating-label="Code postal d'origine">
+								<md-item-template>
+									<span md-highlight-text="cporig" md-highlight-flags="^i">{{item[0] +" - "+ item[1] }}</span>
+								</md-item-template>
+								<md-not-found>
+									Aucun résultat pour "{{codePostalOrigine}}".
+								</md-not-found>
+							</md-autocomplete>
+
+							<md-autocomplete flex
+							md-selected-item="codePostalDest"
+							md-search-text-change="searchTextDestChange(cpdest)"
+							md-search-text="cpdest"
+							md-selected-item-change="selectedItemDestChange(item)"
+							md-items="item in states|filter:cpdest:startsWith"
+							md-item-text="item[0]"
+							md-min-length="0"
+							md-floating-label="Code postal de destination">
+							<md-item-template>
+								<span md-highlight-text="cpdest" md-highlight-flags="^i">{{item[0] +" - "+ item[1] }}</span>
+							</md-item-template>
+							<md-not-found>
+								Aucun résultat pour "{{codePostalDest}}".
+							</md-not-found>
+						</md-autocomplete>
+					</div>
+					<div layout="row">
+						<md-input-container flex >
+							<label>Type de bien</label>
+							<md-select ng-required="transaction.livraison" ng-checked="transaction.commodity_id_uship" ng-model="transaction.commodity_id_uship">
+								<md-option ng-value="79">Voitures et camionnettes</md-option>
+								<md-option ng-value="81">Camping car</md-option>
+								<md-option ng-value="82">Remorques</md-option>
+								<md-option ng-value="87">Véhicules anciens</md-option>
+								<md-option ng-value="88">Camions lourds et véhicules de construction</md-option>
+								<md-option ng-value="91">Tracteurs et équipements agricoles</md-option>
+								<md-option ng-value="92">Autres véhicules</md-option>
+								<md-option ng-value="148">Motos et dérivés</md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container class="md-block" flex>
+							<label>Poids estimé</label>
+							<input ng-model="transaction.poids_emc" name="poids_emc" required>
+							<message-error-profil ng-show="formProfil.$submitted || formProfil.poids_emc.$dirty" typechamp="formProfil.emc_poids.$error" istype="text"></message-error-profil>
+						</md-input-container>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div layout="column">
+			<md-checkbox ng-model="transaction.satisfaction" aria-label="Acheteur">
+				Souhaitez vous proposer un délai de satisfaction ? (Si l'acheteur décide de choisir la livraison)
+			</md-checkbox>
+			<div layout="row" layout-xs="column" ng-if="transaction.satisfaction" >
+				<md-datepicker ng-required="transaction.satisfaction"  name="date_delai_retractation" style="position: relative; top: 15px; left: -15px;" flex ng-model="transaction.date_delai_retractation" md-placeholder="Date du delai de satisfaction"></md-datepicker>
+				<md-input-container flex style="margin-top: 35px;">
+					<label>Delai de satisfaction</label>
+					<md-select ng-required="transaction.satisfaction" ng-model="transaction.delail_tractation">
+						<md-option ng-value="1">1 jour</md-option>
+						<md-option ng-value="2">2 jours</md-option>
+						<md-option ng-value="3">3 jours</md-option>
+						<md-option ng-value="4">4 jours</md-option>
+						<md-option ng-value="5">5 jours</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+		</div>
+		<div layout="column" style="display:none;">
+			<md-radio-group ng-model="transaction.clause_sequestre" layout="column">
+				<md-radio-button value="1"> Le séquestre est payé par le vendeur </md-radio-button>
+				<md-radio-button value="2"> Le séquestre est partagé à 50/50 entre le vendeur et l'acheteur </md-radio-button>
+			</md-radio-group>
+		</div>
+		<div layout="row">
+			<md-button class="md-raised md-primary col" ng-disabled="etape1Form.$invalid" ng-click="valider()">Valider</md-button>
+			<md-button class="md-raised col" ui-sref="escrow.dossiers">Annuler</md-button>
+		</div>
+	</form>
+</div>
+</div>
+</ion-content>
+</ion-view>

@@ -1,0 +1,77 @@
+<style>
+	.scroll{
+		height : 100%;
+	}
+	md-toolbar._md-toolbar-transitions{
+		z-index : 4;
+	}
+</style>
+<ion-view scroll="false" title="Connexion" id="page2">
+	<md-toolbar>
+		<div class="md-toolbar-tools md-accent-2">
+			<md-button class="md-icon-button" aria-label="Settings" style="color:white" ng-click="toggleLeft()">
+				<md-icon md-svg-src="img/icons/ic_menu_white_24px.svg"></md-icon>
+			</md-button>
+			<h2 style="color:white;">
+				<span>{{title}}</span>
+			</h2>
+			<span flex></span>
+			<div ng-controller="BarMenuDroitController as ctrl">
+				<md-menu md-position-mode="target-right target">
+					<md-button aria-label="Open demo menu" class="md-icon-button white" ng-click="$mdOpenMenu($event)">
+						<md-icon md-svg-src="img/icons/ic_more_vert_white_24px.svg"></md-icon>
+					</md-button>
+					<md-menu-content width="4">
+						<div class="list">
+
+							<a class="item item-avatar" ui-sref="escrow.profile">
+								<img ng-src="{{user.pdp_base64 }}">
+								<strong>{{user.nom}}</strong>
+								<p>{{user.prenom}}</p>
+							</a>
+							<a class="item" href="" padding="true" ng-click="ctrl.deconnect()">
+								<i class="icon ion-log-out" style="color:red !important;"></i>
+								Déconnexion
+							</a>
+						</div>
+					</md-menu-content>
+				</md-menu>
+			</div>
+
+		</div>
+	</md-toolbar>
+	<md-toolbar ng-show="showBarTitle" style="background-color:#FFF !important;" ng-if="true" ng-controller="TitleController">
+		<div class="md-toolbar-tools">
+			<h6>
+				<md-icon md-svg-src="img/icons/ic_arrow_back_black_24px.svg" style="margin-right: 10px;" class="material-icons md-raised" ng-click="back()"></md-icon> 
+				{{ descriptionEtape }}
+			</h6>
+		</div>
+	</md-toolbar>
+	<div layout="column" style="height: 100%;"  ng-cloak>
+		<section layout="row" flex>
+		<md-sidenav
+		class="md-sidenav-left"
+		md-component-id="left"
+		md-is-locked-open="$mdMedia('gt-md')"
+		md-whiteframe="4">
+		<md-content ng-controller="MenuCtrl">
+			<md-toolbar class="md-theme-indigo">
+				<h1 class="md-toolbar-tools" style="color: white">Mysafedeal</h1>
+			</md-toolbar>
+			<div class="list">
+				<menu></menu>
+			</div>
+		</md-content>
+	</md-sidenav>
+		<div flex>
+			<div layout="column" layout-align="top center">
+				<ion-nav-view></ion-nav-view>
+			</div>
+
+		</div>
+	</section>
+
+</div>
+
+</ion-view>

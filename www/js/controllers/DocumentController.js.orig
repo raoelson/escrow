@@ -1,0 +1,256 @@
+/* global fileChooser */
+
+app.controller('DocumentController', ['$scope','$rootScope','$mdDialog','$parse','DocumentService','$mdMedia', function($scope,$rootScope,$mdDialog,$parse,DocumentService,$mdMedia){
+	$scope.$parent.title = "Documents";
+	$scope.maj = new Date();
+	$scope.status = ' ';
+	$scope.identity = "Carte d'identité recto-verso";
+	if($rootScope.user.pp_base64){
+		$scope.identity = "Passeport";
+	}
+	$scope.response = '';
+
+	$scope.zoomer = function(ev,titre,leScope) {
+		$mdDialog.show({
+			controller: ZoomerController,
+			templateUrl: './templates/zoomer.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose: true,
+            fullscreen: false // Only for -xs, -sm breakpoints.
+ 			,
+ 			locals : {
+ 				item : leScope,
+ 				titre : titre
+ 			}
+  })
+		.then(function(answer) {
+			$scope.response = 'You said the information was "' + answer + '".';
+		}, function() {
+			$scope.response = 'You cancelled the dialog.';
+		});
+	};
+	function ZoomerController($scope, $mdDialog,item,titre) {
+		$scope.item = item;
+		switch(titre){
+			case 'pp':
+				$scope.libelle = 'Passerport';
+				break;
+			case 'jd':
+				$scope.libelle = 'Justificatif de domicile';
+				break;
+			case 'rib':
+				$scope.libelle = 'Relevé d\'identité bancaire';
+				break;
+			case 'recto':
+				$scope.libelle = 'Pièce d\'identité recto';
+				break;
+			case 'verso':
+				$scope.libelle = 'Pièce d\'identité verso';
+				break;
+		}
+		$scope.hide = function() {
+			$mdDialog.hide();
+		};
+
+		$scope.cancel = function() {
+			$mdDialog.cancel();
+		};
+
+		$scope.answer = function(answer) {
+			$mdDialog.hide(answer);
+		};
+	}
+	$scope.checkIfPdf = function(image){
+		return image.match(/pdf/g);
+	};
+	$scope.showTabDialogt = function(ev) {
+		$mdDialog.show({
+			controller: GestionDocumentCtrl,
+			templateUrl: './templates/modalDocument.html',
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose:true
+		})
+		.then(function(answer) {
+			$scope.status = 'You said the information was "' + answer + '".';
+		}, function() {
+			$scope.status = 'You cancelled the dialog.';
+		});
+	};
+	
+	function GestionDocumentCtrl($scope, $mdDialog) {
+
+		$scope.hide = function() {
+			$mdDialog.hide();
+		};
+
+		$scope.cancel = function() {
+			$mdDialog.cancel();
+		};
+
+		$scope.answer = function(answer) {
+			$mdDialog.hide(answer);
+		};
+
+	}
+
+	if($rootScope.user){
+		if($rootScope.user.jd_base64){
+			$scope.jd = $rootScope.user.jd_base64;
+			/*var jd = $scope.jd;
+			$scope.jdIspdf = false;
+			var jdSplit = jd.split(',');
+			if($scope.checkIfPdf(jdSplit[0]) != null){
+				$scope.jdIspdf = true;
+			}*/
+		}
+		if($rootScope.user.jd_base64){
+			$scope.rib = $rootScope.user.rib_base64;
+		}
+		if($rootScope.user.cin_base64){
+			$scope.identity = "Carte d'identité recto-verso";
+			$scope.cins = $rootScope.user.cin_base64;
+			angular.forEach($rootScope.user.cin_base64, function (value, key) {          
+				if (key != null) {                       
+					$parse(key).assign($scope, value);                                
+				}          
+			});
+		}
+		if($rootScope.user.pp_base64){
+			$scope.identity = "Passeport";
+		}
+	}
+
+	
+	//gestion choix fichier
+	$scope.choose = function(type){
+            console.log('mbola mandalo eto');
+		// comment mode dev
+		fileChooser.open(function(uri) {
+			/*var isPdf = false;
+			if(uri.match(/\.pdf/g) != null){
+				isPdf = true;
+			}*/
+			if(!$rootScope.user.cin_base64){
+				$rootScope.user.cin_base64 = {};
+			}
+			window.plugins.Base64.encodeFile(uri, function(base64){
+				switch (type) {
+					case 'recto' :
+					$scope.recto = base64;
+					$rootScope.user.cin_base64.recto = base64;
+					if(isPdf){
+						$scope.rectoIspdf = true;
+					}else{
+						$scope.rectoIspdf = false;
+					}
+					break;	
+					case 'verso' :
+					$scope.verso = base64;
+					$rootScope.user.cin_base64.verso = base64;
+					if(isPdf){
+						$scope.versoIspdf = true;
+					}else{
+						$scope.versoIspdf = false;
+					}
+					break;	
+					case 'pp' :
+					$scope.pp = base64;
+					$rootScope.user.pp_base64 = base64;
+					if(isPdf){
+						$scope.ppIspdf = true;
+					}else{
+						$scope.ppIspdf = false;
+					}
+					break;	
+					case 'jd' :
+					$scope.jd = base64;
+					$rootScope.user.jd_base64 = base64;
+					if(isPdf){
+						$scope.jdIspdf = true;
+					}else{
+						$scope.jdIspdf = false;
+					}
+
+					break;	
+					case 'rib' :
+					$scope.rib = base64;
+					$rootScope.user.rib_base64 = base64;
+					if(isPdf){
+						$scope.ribIspdf = true;
+					}else{
+						$scope.ribIspdf = false;
+					}
+					break;	
+
+				}
+			});
+			
+		});
+	};
+	$scope.takePhoto = function(type){
+		var options =   {
+			quality: 50,
+			targetWidth : 100,
+			targetHeight : 100,
+			destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+            encodingType: 0     // 0=JPG 1=PNG
+        };
+        var tp = type;
+        navigator.camera.getPicture(function(FILE_URI){
+        	switch (tp) {
+        		case 'recto' :
+        		$scope.recto = "data:image/jpeg;base64,"+FILE_URI;
+        		$rootScope.user.cin_base64.recto = "data:image/jpeg;base64,"+FILE_URI;
+        		break;	
+        		case 'verso' :
+        		$scope.verso = "data:image/jpeg;base64,"+FILE_URI;
+        		$rootScope.user.cin_base64.verso = "data:image/jpeg;base64,"+FILE_URI;
+        		break;	
+        		case 'pp' :
+        		$scope.pp = "data:image/jpeg;base64,"+FILE_URI;
+        		$rootScope.user.pp_base64 = "data:image/jpeg;base64,"+FILE_URI;
+        		break;	
+        		case 'jd' :
+        		$scope.jd = "data:image/jpeg;base64,"+FILE_URI;
+        		$rootScope.user.jd_base64 = "data:image/jpeg;base64,"+FILE_URI;
+        		break;	
+        		case 'rib' :
+        		$scope.rib = "data:image/jpeg;base64,"+FILE_URI;
+        		$rootScope.user.rib_base64 = "data:image/jpeg;base64,"+FILE_URI;
+        		break;	
+
+        	}
+        },onFail,options);
+    };
+	///
+	var onFail = function(e) {
+		alert("On fail " + e);
+	};
+	// envoye document
+	$scope.sendDocs = function(isType){
+		$scope.loading = true;
+		$rootScope.user.etape = 4;
+		if(isType == 'idCheck'){
+			$rootScope.user.verifIdCheck = true;
+		}else{
+			$rootScope.user.verifIdCheck = false;
+		}
+		DocumentService.sendDocument($rootScope.user);
+	};
+	$scope.$on('event:send-document-success', function(e, data) {
+		$scope.loading = false;
+		$rootScope.showSimpleToast("Enregistrement avec succès");
+	});
+	$scope.$on('event:send-document-failed', function(e, data) {
+		$scope.loading = false;
+		$rootScope.showSimpleToast("L' enregistrement n'a pas abouti");
+	});
+
+	$scope.currentPI ='pi';
+	$scope.currentNavRIB ='rib';
+	$scope.currentNavJD ='jd';
+
+}]);
